@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'NeueBit';
+  src: url('../fonts/ppneuebit-regular-webfont.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NeueBitBold';
+  src: url('../fonts/ppneuebit-bold-webfont.woff2') format('woff');
+  font-display: swap;
+}
+
+.textedit-textarea {
+  cursor: text;
+  outline: none;
+}
+
+:focus {
+  outline: none;
+}
+
+.window-button {
+  width: 15px;
+  height: 15px;
+  background-color: #AAA;
+  border: none;
+  outline: none;
+  cursor: default;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  justify-items: center;
+  justify-content: center;
+}
+
+.window-button:hover {
+  background-color: #ddd;
+}
+
+.window-button:active {
+  transform: scale(0.95);
+}
