@@ -1,3 +1,11 @@
+*, html {
+  image-rendering: pixelated;
+}
+
+html, body {
+  margin: 0 auto;
+}
+
 @font-face {
   font-family: 'NeueBit';
   src: url('../fonts/ppneuebit-regular-webfont.woff2') format('woff');
@@ -19,7 +27,29 @@
   outline: none;
 }
 
-.window-button {
+.windowtitle {
+  font-family: 'NeueBitBold',
+  /* height: 23px; */
+  width: 100%;
+  display: flex;
+  padding: 2px;
+  justify-content: space-between;
+  border-top: 1px solid #FCFCFE;
+  border-left: 1px solid #FCFCFE;
+  border-bottom: 1px solid #565656;
+  border-right: 1px solid #565656;
+}
+
+.windowtitle.inactive {
+  background: #AAAAAA;
+}
+
+.windowtitle.active {
+  background: #000;
+  color: #FFF;
+}
+
+.titlebar-button {
   width: 15px;
   height: 15px;
   background-color: #AAA;
@@ -31,10 +61,14 @@
   justify-content: center;
 }
 
-.window-button:hover {
-  background-color: #ddd;
+.title-text {
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.window-button:active {
-  transform: scale(0.95);
-}
+.title-text h3 {
+  cursor: default;
+  font-family: "NeueBitBold";
+  color: black;
+  width:

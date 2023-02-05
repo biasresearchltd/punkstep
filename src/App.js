@@ -1,62 +1,60 @@
-import React, { mode, useState, useRef } from "react";
-import {
-  ChakraProvider,
-  Box,
-  Text,
-  Link,
-  VStack,
-  Code,
-  Grid,
-  theme,
-  extendTheme
-} from '@chakra-ui/react';
-import Draggable from "react-draggable";
-import { ColorModeSwitcher } from './components/ColorModeSwitcher';
-import './styles.css';
+import React, { useState } from "react";
 import Desktop from './components/Desktop';
 import Dock from './components/Dock';
 import Bottom from './components/Bottom';
 import Window from './components/Window';
 
-const myTheme = extendTheme({
-  config: {
-    useSystemColorMode: false,
-    
-  },
-  colors: {
-      green: '#00FF46',
-      blue: '#0075FF',
-      orange: '#FF7F00',
-      yellow: '#FFFF00',
-      chartreuse: '#B5FF00',
-      pink: '#FF00C4',
-      darkback: '#192817'
-  },
-  styles: {
-    global: (props) => ({
-      body: {
-        bg: mode('darkback', 'darkback')(props),
-        backgroundImage: mode('linear-gradient(45deg, #0075FF 25%, transparent 25%), linear-gradient(-45deg, #0075FF 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #0075FF 75%), linear-gradient(-45deg, transparent 75%, #0075FF 75%)','linear-gradient(45deg, #B5FF00 25%, transparent 25%), linear-gradient(-45deg, #B5FF00 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #B5FF00 75%), linear-gradient(-45deg, transparent 75%, #B5FF00 75%)'),
-        backgroundSize: '40px 40px',
-        backgroundPosition: '0 0, 0 20px, 20px -20px, -20px 0px'
-      }
-    })
-  }
-});
-
 function App() {
-  return (
-    <ChakraProvider theme={theme}>
-      <Desktop background="grey">
-      <Dock>
-      </Dock>
-        
-        <Window title="Mindware.txt">
-        </Window>
-        <Bottom />
-      </Desktop>
-    </ChakraProvider>
-  );
+const [windows, setWindows] = useState([<Window title="Mindware.txt" />]);
+const [backgroundPosition, setBackgroundPosition] = useState({x: 0, y: 0});
+const [activeWindowIndex, setActiveWindowIndex] = useState(null);
+const [text, setText] = useState("");
+
+const handleMouseDown = (event) => {
+const initialX = event.clientX;
+const initialY = event.clientY;
+const handleMouseMove = (event) => {
+const deltaX = event.clientX - initialX;
+const deltaY = event.clientY - initialY;
+setBackgroundPosition({x: deltaX, y: deltaY});
+};
+document.addEventListener('mousemove', handleMouseMove);
+document.addEventListener('mouseup', () => {
+document.removeEventListener('mousemove', handleMouseMove);
+});
+};
+
+const addWindow = (newWindow) => {
+setWindows(prevWindows => [...prevWindows, newWindow]);
+};
+
+const handleTitlebarClick = (index) => {
+  setActiveWindowIndex(activeWindowIndex === index ? null : index);
+};
+
+return (
+<Desktop 
+     background="grey"
+     backgroundPosition={backgroundPosition}
+     onMouseDown={handleMouseDown}
+     style={{
+      overflow: 'hidden',
+      touchAction: 'none'
+     }}
+   >
+<Dock addWindow={addWindow} />
+{windows.map((window, index) => (
+  <div key={index}>
+    <Window 
+      title={window.props.title} 
+      isActive={activeWindowIndex === index} 
+      onTitlebarClick={() => handleTitlebarClick(index)} 
+    />
+  </div>
+))}
+<Bottom />
+</Desktop>
+);
 }
 
 export default App;
