@@ -1,0 +1,34 @@
+.root {
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  height: 100%;
+  width: 100%;
+  border-top: 1px solid #000000;
+  border-bottom: 1px solid #565656;
+  display: flex;
+  flex-direction: column;
+}
+
+.textedit-textarea {
+  min-height: 265px;
+  width: 100%;
+  resize: none;
+  border: none;
+  font-size: 9px;
+  outline: none;
+  border-radius: 0;
+  font-family: 'NeueBit';
+  cursor: text;
+}
+
+.windowfooter {
+  background-color: #AAAAAA;
+  width: 100%;
+  height: 8px;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656;
+  position: absolute;
+  bottom: 0;
+}
