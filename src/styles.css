@@ -29,10 +29,8 @@ html, body {
 
 .windowtitle {
   font-family: 'NeueBitBold',
-  /* height: 23px; */
   width: 100%;
   display: flex;
-  padding: 2px;
   justify-content: space-between;
   border-top: 1px solid #FCFCFE;
   border-left: 1px solid #FCFCFE;
