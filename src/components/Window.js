@@ -4,7 +4,7 @@ import TextEditIcon from "./TextEditIcon";
 import TitleBar from "./TitleBar";
 import TextArea from "./TextArea";
 
-const TextEditor = ({ title, isActive, onClick }) => {
+const AppWindow = ({ title, isActive, onClick }) => {
   const [minimized, setMinimized] = useState(false);
   const [closed, setClosed] = useState(false);
   const [text, setText] = useState("");
@@ -31,6 +31,7 @@ const TextEditor = ({ title, isActive, onClick }) => {
 		  transition: "height 0.3s ease-in-out, width 0.3s ease-in-out, border 0.3s ease-in-out",
 		  display: "flex",
 		  flexDirection: "column",
+		  zIndex: isActive ? 2 : 1,
 		}}
 	  >
 		{
@@ -41,8 +42,9 @@ const TextEditor = ({ title, isActive, onClick }) => {
 				handleMinimize={handleMinimize}
 				handleClose={handleClose}
 				isActive={isActive}
-				handleClick={onClick}
+				handleTitlebarClick={onClick}
 			  />
+
 			  <TextArea text={text} handleTextChange={handleTextChange} />
 			  <div className="windowfooter" />
 			</div>
@@ -62,4 +64,4 @@ const TextEditor = ({ title, isActive, onClick }) => {
   );
 };
 
-export default TextEditor;
+export default AppWindow;

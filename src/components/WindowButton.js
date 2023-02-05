@@ -1,9 +1,9 @@
 import React from "react";
 import Minimize from "../icons/Minimize.png";
 import Close from "../icons/Close.png";
-import { css } from "@emotion/core";
+import styled from "styled-components";
 
-const windowButtonStyles = css`
+const StyledWindowButton = styled.div`
   width: 15px;
   height: 15px;
   background-color: #AAA;
@@ -14,6 +14,7 @@ const windowButtonStyles = css`
   justify-content: center;
   align-items: center;
   box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  margin: 2px;
   &:hover {
 	background-color: #ddd;
   }
@@ -23,7 +24,7 @@ const windowButtonStyles = css`
 `;
 
 const WindowButton = ({ onClick, icon, iconSize = "10px" }) => (
-  <div css={windowButtonStyles} onClick={onClick}>
+  <StyledWindowButton onClick={onClick}>
 	<div style={{ width: iconSize, height: iconSize }}>
 	  {icon === "minimize" ? (
 		<img src={Minimize} alt="Minimize icon" />
@@ -31,6 +32,6 @@ const WindowButton = ({ onClick, icon, iconSize = "10px" }) => (
 		<img src={Close} alt="Close icon" />
 	  ) : null}
 	</div>
-  </div>
+  </StyledWindowButton>
 );
 export default WindowButton;
