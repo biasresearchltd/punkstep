@@ -5,24 +5,23 @@ const Content = styled.div`
   position: relative;
   textarea {
 	width: calc(100% - 25px);
-	height: 100%;
+	height: 299px;
 	position: absolute;
 	left: 21px;
   }
 `;
 
 const Scrollbar = styled.div`
-  width: 25px;
-  height: 100%;
+  width: 22px;
+  height: 304px;
   background-color: grey;
   position: absolute;
   top: 0;
   left: 0;
-  bottom: 0;
 
   .scrollbar {
 	position: absolute;
-	margin-left: 3px;
+	margin-left: 2.5px;
 	top: 0;
 	width: 15px;
 	background-color: #AAAAAA;

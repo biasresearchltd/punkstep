@@ -2,10 +2,11 @@ import React from "react";
 import styled from 'styled-components';
 import { create } from "zustand";
 import Dock from './components/Dock';
+import Logo from './components/Logo';
 import Bottom from './components/Bottom';
 import AppWindow from './components/AppWindow';
 import BackgroundColor from './components/BackgroundColor';
-import Punk from './PUNK.gif';
+
 import './styles.css';
 
 const DesktopContainer = styled.div`
@@ -87,7 +88,7 @@ const App = () => {
 return (
     <Desktop background={BackgroundColor}>
       <div className="checkered3-wrapper" style={{ width: '100%', height: '100%'}}>
-        <div className="checkered3" style={{ height: '100vh' }}>
+        <div className="checkered3" style={{ height: '100vh', width: '100vw' }}>
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
             <div
@@ -97,15 +98,7 @@ return (
                 zIndex: index === activeWindowIndex ? 10 : 0,
               }}
             >
-              <img src={Punk} 
-                   style={{
-                     position: "absolute",
-                     top: "50%",
-                     left: "50%",
-                     transform: "translate(-50%, -50%) scale(0.333)",
-                     display: 'flex'
-                   }}
-               />
+              <Logo />
 
               <AppWindow
                 className={`app-window-${index}`}

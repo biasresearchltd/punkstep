@@ -5,6 +5,7 @@ import CalIcon from "./CalIcon";
 import TextEditIcon from "./TextEditIcon";
 import BlankIcon from "./BlankIcon";
 import OKSHIcon from "./OKSHIcon";
+import RoboIcon from "./RoboIcon";
 import Window from './Window';
 
 const Dock = ({ addWindow }) => {
@@ -37,7 +38,7 @@ const Dock = ({ addWindow }) => {
 		  <CalIcon />
 		  <TextEditIcon onClick={handleTextEditClick} />
 		  <OKSHIcon />
-		  <BlankIcon />
+		  <RoboIcon />
 		  <BlankIcon />
 		</div>
 	  </div>

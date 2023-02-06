@@ -21,11 +21,15 @@ width: 100vw;
 background: ${props => props.background};
 overflow: hidden;
 border: none;
+user-drag: none;
+user-select: none;
 
 .container {
-display: flex;
-justify-content: center;
-align-items: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	user-drag: none;
+	user-select: none;
 }
 
 .checkered3 {
