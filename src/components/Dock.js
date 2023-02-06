@@ -6,7 +6,7 @@ import TextEditIcon from "./TextEditIcon";
 import BlankIcon from "./BlankIcon";
 import OKSHIcon from "./OKSHIcon";
 import RoboIcon from "./RoboIcon";
-import Window from './Window';
+import Window from './AppWindow';
 
 const Dock = ({ addWindow }) => {
   const [textEditorCount, setTextEditorCount] = useState(0);
@@ -32,7 +32,7 @@ const Dock = ({ addWindow }) => {
 
   return (
 	<>
-	  <div style={{ position: "fixed", top: 0, right: 0 }}>
+	  <div style={{ position: "fixed", top: 0, right: "2px" }}>
 		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", alignSelf: 'flex-start' }}>
 		  <PunkIcon />
 		  <CalIcon />

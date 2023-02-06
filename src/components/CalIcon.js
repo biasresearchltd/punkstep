@@ -74,6 +74,10 @@ const Month = styled.p`
   margin-top: 0.5px;
   user-select: none;
   padding: 0;
+  
+  @media only screen and (max-width: 767px) {
+    margin-top: 0px;
+  }
 `;
 
 const CalIcon = ({ onClick }) => {

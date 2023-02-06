@@ -5,6 +5,7 @@ import Dock from './components/Dock';
 import Logo from './components/Logo';
 import Bottom from './components/Bottom';
 import AppWindow from './components/AppWindow';
+import Recycle from './components/Recycle';
 import BackgroundColor from './components/BackgroundColor';
 
 import './styles.css';
@@ -109,6 +110,7 @@ return (
               />
             </div>
           ))}
+          <Recycle />
           <Bottom
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
