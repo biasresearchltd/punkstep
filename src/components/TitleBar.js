@@ -3,7 +3,7 @@ import WindowButton from "./WindowButton";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 21px;
+  height: 20px;
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -14,6 +14,9 @@ const Container = styled.div`
   font-size: 9px;
   font-family: NeueBitBold;
   background: #AAAAAA;
+  image-rendering: pixelated;
+  user-drag: none;
+  user-select: none;
 
   &.active {
 	background: #000;
@@ -24,10 +27,9 @@ const Container = styled.div`
 const Title = styled.div`
   cursor: default;
   color: ${(props) => (props.isActive ? "white" : "black")};
-  width: 100%;
   font-size: 9px;
   font-weight: bold;
-  font-family: "'NeueBitBold'";
+  font-family: "NeueBitBold";
   display: flex;
   align-items: center;
 `;

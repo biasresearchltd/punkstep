@@ -1,4 +1,33 @@
 import React, { useRef, useEffect } from "react";
+import styled from 'styled-components';
+
+const Content = styled.div`
+  position: relative;
+  textarea {
+	width: calc(100% - 25px);
+	height: 100%;
+	position: absolute;
+	left: 21px;
+  }
+`;
+
+const Scrollbar = styled.div`
+  width: 25px;
+  height: 100%;
+  background-color: grey;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  .scrollbar {
+	position: absolute;
+	margin-left: 3px;
+	top: 0;
+	width: 15px;
+	background-color: #AAAAAA;
+	box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  }
+`;
 
 const TextArea = ({ text, handleTextChange }) => {
   const textareaRef = useRef(null);
@@ -8,7 +37,8 @@ const TextArea = ({ text, handleTextChange }) => {
 	const textarea = textareaRef.current;
 	const scrollbar = scrollbarRef.current;
 	const updateScrollbar = () => {
-	  scrollbar.style.height = `${textarea.offsetHeight * (textarea.offsetHeight / textarea.scrollHeight)}px`;
+	  const barHeight = Math.min(textarea.offsetHeight * (textarea.offsetHeight / textarea.scrollHeight), textarea.offsetHeight);
+	  scrollbar.style.height = `${barHeight}px`;
 	  scrollbar.style.top = `${textarea.scrollTop * (textarea.offsetHeight / textarea.scrollHeight)}px`;
 	};
 
@@ -19,27 +49,17 @@ const TextArea = ({ text, handleTextChange }) => {
   }, []);
 
   return (
-	<div className="content">
-	  <div style={{ width: "18px", height: "100%", backgroundColor: "grey", position: "absolute", left: "0" }}>
-		<div
-		  ref={scrollbarRef}
-		  style={{
-			position: "absolute",
-			right: "2px",
-			top: "0",
-			width: "16px",
-			backgroundColor: "#AAAAAA",
-		  }}
-		/>
-	  </div>
+	<Content className="content">
+	  <Scrollbar>
+		<div ref={scrollbarRef} className="scrollbar"/>
+	  </Scrollbar>
 	  <textarea
 		ref={textareaRef}
 		className="textedit-textarea"
 		value={text}
 		onChange={handleTextChange}
-		style={{ width: "calc(100% - 18px)", height: "100%", position: "relative", left: "18px" }}
 	  />
-	</div>
+	</Content>
   );
 };
 

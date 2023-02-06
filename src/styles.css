@@ -2,7 +2,7 @@
   image-rendering: pixelated;
 }
 
-html, body {
+body {
   margin: 0 auto;
 }
 
@@ -18,55 +18,7 @@ html, body {
   font-display: swap;
 }
 
-.textedit-textarea {
-  cursor: text;
-  outline: none;
+img {
+  user-drag: none;
+  user-select: none;
 }
-
-:focus {
-  outline: none;
-}
-
-.windowtitle {
-  font-family: 'NeueBitBold',
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid #FCFCFE;
-  border-left: 1px solid #FCFCFE;
-  border-bottom: 1px solid #565656;
-  border-right: 1px solid #565656;
-}
-
-.windowtitle.inactive {
-  background: #AAAAAA;
-}
-
-.windowtitle.active {
-  background: #000;
-  color: #FFF;
-}
-
-.titlebar-button {
-  width: 15px;
-  height: 15px;
-  background-color: #AAA;
-  border: none;
-  outline: none;
-  cursor: default;
-  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
-  justify-items: center;
-  justify-content: center;
-}
-
-.title-text {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.title-text h3 {
-  cursor: default;
-  font-family: "NeueBitBold";
-  color: black;
-  width:

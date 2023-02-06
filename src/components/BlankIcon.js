@@ -5,7 +5,6 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 64px;
   height: 64px;
-  border: 1px solid #000000;
   cursor: default;
   display: inline-block;
   margin: 0;

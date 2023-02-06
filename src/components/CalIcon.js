@@ -5,7 +5,6 @@ import styled from "styled-components";
 const Container = styled.div`
   width: 64px;
   height: 64px;
-  border: 1px solid #000000;
   position: relative;
   display: inline-block;
   margin: 0;
@@ -48,7 +47,8 @@ const WeekDay = styled.p`
   font-weight: none;
   text-transform: uppercase;
   transform: scaleX(1.666);
-  margin-bottom: 0px;
+  margin-top: 5px;
+  margin-bottom: 1px;
   padding: 0;
 `;
 
@@ -74,32 +74,33 @@ const Month = styled.p`
 `;
 
 const CalIcon = ({ onClick }) => {
-const [time, setTime] = useState(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
-const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
+  const [date, setDate] = useState(new Date());
 
-useEffect(() => {
-const intervalId = setInterval(() => {
-setTime(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
-setDate(new Date());
-}, 1000);
-return () => clearInterval(intervalId);
-}, []);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
+      setDate(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, []);
 
-const weekDay = date.toLocaleString("en-US", { weekday: "short" });
-const day = date.getDate().toString().padStart(2, "0");
-const month = date.toLocaleString("en-US", { month: "short" });
+  const weekDay = date.toLocaleString("en-US", { weekday: "short" });
+  const day = date.getDate();
+  const month = date.toLocaleString("en-US", { month: "short" });
 
-return (
-<Container onClick={onClick}>
-<Icon src={IconImage} />
-<TextContainer>
-<Time>{time}</Time>
-<WeekDay>{weekDay}</WeekDay>
-<Day>{day}</Day>
-<Month>{month}</Month>
-</TextContainer>
-</Container>
-);
+  return (
+    <Container onClick={onClick}>
+      <Icon src={IconImage} />
+      <TextContainer>
+        <Time>{time}</Time>
+        <WeekDay>{weekDay}</WeekDay>
+        <Day>{day}</Day>
+        <Month>{month}</Month>
+      </TextContainer>
+    </Container>
+  );
 };
+
 
 export default CalIcon;
