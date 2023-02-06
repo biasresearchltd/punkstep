@@ -7,7 +7,7 @@ import TextArea from "./TextArea";
 const AppWindow = ({ title, isActive, onClick }) => {
   const [minimized, setMinimized] = useState(false);
   const [closed, setClosed] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState("The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind.");
   const handleMinimize = () => setMinimized(!minimized);
   const handleClose = () => setClosed(!closed);
   const handleDoubleClick = () => setMinimized(false);
