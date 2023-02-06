@@ -1,5 +1,4 @@
 import React from "react";
-import Draggable from "react-draggable";
 import IconImage from "../icons/TextEditIcon2-24.png";
 import styled from 'styled-components';
 
@@ -21,11 +20,12 @@ const Image = styled.img`
 `;
 
 const TextEditIcon = ({ onClick }) => (
-<Draggable>
+
 <Container onClick={onClick}>
 <Image src={IconImage} />
 </Container>
-</Draggable>
+
 );
 
 export default TextEditIcon;
+

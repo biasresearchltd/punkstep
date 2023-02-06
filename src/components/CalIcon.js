@@ -38,6 +38,7 @@ const Time = styled.p`
   text-shadow: 0 0 8px #00FF46, 0 0 4px #00FF46, 0 0 1px #00FF46;
   margin: 0;
   padding: 0;
+  user-select: none;
 `;
 
 const WeekDay = styled.p`
@@ -50,6 +51,7 @@ const WeekDay = styled.p`
   margin-top: 5px;
   margin-bottom: 1px;
   padding: 0;
+  user-select: none;
 `;
 
 const Day = styled.p`
@@ -59,6 +61,7 @@ const Day = styled.p`
   transform: scale(1.42, 1.666);
   margin: 0;
   padding: 0;
+  user-select: none;
 `;
 
 const Month = styled.p`
@@ -69,7 +72,7 @@ const Month = styled.p`
   transform: scale(1.666, 1.1);
   text-transform: uppercase;
   margin-top: 0.5px;
-
+  user-select: none;
   padding: 0;
 `;
 

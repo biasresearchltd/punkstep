@@ -4,6 +4,7 @@ import PunkIcon from "./Icon";
 import CalIcon from "./CalIcon";
 import TextEditIcon from "./TextEditIcon";
 import BlankIcon from "./BlankIcon";
+import OKSHIcon from "./OKSHIcon";
 import Window from './Window';
 
 const Dock = ({ addWindow }) => {
@@ -35,7 +36,7 @@ const Dock = ({ addWindow }) => {
 		  <PunkIcon />
 		  <CalIcon />
 		  <TextEditIcon onClick={handleTextEditClick} />
-		  <BlankIcon />
+		  <OKSHIcon />
 		  <BlankIcon />
 		  <BlankIcon />
 		</div>
