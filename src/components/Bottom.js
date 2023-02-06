@@ -1,32 +1,25 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import PunkIcon from "./Icon";
 import CalIcon from "./CalIcon";
 import BlankIcon from "./BlankIcon";
-import TextEditIcon from "./BlankIcon";
+import TextEditIcon from "./TextEditIcon";
+import AppWindow from './AppWindow';
+import useApp from '../App';
 
-const Iframe = ({ src, width, height, createIframe }) => {
-  const iframeRef = useRef(null);
+const Bottom = () => {
+  const { minimizedWindows, restoreWindow } = useApp();
 
-  const createFrame = () => {
-	const frame = iframeRef.current;
-	frame.src = src;
-	frame.style.width = width;
-	frame.style.height = height;
-  };
-
-  return <iframe ref={iframeRef} />;
+  return (
+	<div style={{ position: "fixed", bottom: 0, left: 0 }}>
+	  <div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+		{minimizedWindows && minimizedWindows.map((window, index) => (
+		  <div key={index}>
+			{window.props.title === "Mindware.txt" ? <TextEditIcon onClick={() => restoreWindow(index)} /> : <BlankIcon onClick={() => restoreWindow(index)} />}
+		  </div>
+		))}
+	  </div>
+	</div>
+  );
 };
 
-const Bottom = ({ onClick, minimizeTextEditor }) => (
-  <div style={{ position: "fixed", bottom: 0, left: 0 }}>
-	<div style={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
-	  <PunkIcon onClick={onClick} />
-	  <BlankIcon onClick={onClick} />
-	  <BlankIcon onClick={onClick} />
-	  <BlankIcon onClick={onClick} />
-	  <BlankIcon onClick={onClick} />
-	  <BlankIcon onClick={onClick} />
-	</div>
-  </div>
-);
 export default Bottom;

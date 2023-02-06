@@ -1,71 +1,112 @@
 import React, { useState } from "react";
-import Desktop from './components/Desktop';
+import styled from 'styled-components';
+import { create } from "zustand";
 import Dock from './components/Dock';
 import Bottom from './components/Bottom';
 import AppWindow from './components/AppWindow';
+import './styles.css';
 
-function App() {
-  const [windows, setWindows] = useState([<AppWindow title="Mindware.txt" />]);
-  const [backgroundPosition, setBackgroundPosition] = useState({x: 0, y: 0});
-  const [activeWindowIndex, setActiveWindowIndex] = useState(null);
-  const [text, setText] = useState("");
+const DesktopContainer = styled.div`
+  height: 100vh;
+  width: 100vw;
+  background: ${props => props.background};
+  overflow: hidden;
+  border: none;
+  touch-action: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
-  const handleMouseDown = (event) => {
-    const initialX = event.clientX;
-    const initialY = event.clientY;
-    const handleMouseMove = (event) => {
-      const deltaX = event.clientX - initialX;
-      const deltaY = event.clientY - initialY;
-      setBackgroundPosition({x: deltaX, y: deltaY});
-    };
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-    });
-  };
-
-  const addWindow = (newWindow) => {
-    setWindows(prevWindows => [...prevWindows, newWindow]);
-  };
-
-  const handleTitlebarClick = (index) => {
-    setActiveWindowIndex(activeWindowIndex === index ? null : index);
-    setWindows(prevWindows => prevWindows.map((window, i) => {
-      return (
-        <AppWindow 
-          title={window.props.title} 
-          isActive={activeWindowIndex === index && i === index} 
-          onTitlebarClick={() => handleTitlebarClick(i)} 
-        />
-      );
-    }));
-  };
-  
-  const [activeEditorId, setActiveEditorId] = useState(null);
-  
-  const handleEditorClick = (id) => {
-    setActiveEditorId(id);
-  };
-  
+const Desktop = ({ children, background }) => {
   return (
-    <Desktop 
-      background="grey"
-      backgroundPosition={backgroundPosition}
-      onMouseDown={handleMouseDown}
-      style={{
-        overflow: 'hidden',
-        touchAction: 'none'
-      }}
-    >
-      <Dock addWindow={addWindow} />
-      {windows.map((window, index) => (
-        <div key={index}>
-          {window}
-        </div>
-      ))}
-      <Bottom />
-    </Desktop>
+    <DesktopContainer background={background}>
+      {children}
+    </DesktopContainer>
   );
-}
+};
 
-export default App;
+const useApp = create((set) => ({
+  windows: [<AppWindow title="Mindware.txt" />],
+  backgroundPosition: { x: 0, y: 0 },
+  activeWindowIndex: 0,
+  text: "",
+  activeEditorId: null,
+  minimizedWindows: [],
+  windowsClassName: [],
+
+  addWindow: (newWindow) => set((state) => {
+    const newClassName = `app-window-${state.windows.length}`;
+    const windowsClassName = [...state.windowsClassName, newClassName];
+    return {
+      windows: [...state.windows, newWindow],
+      activeWindowIndex: state.windows.length,
+      windowsClassName,
+    };
+  }),
+
+  handleWindowClick: (index) => set((state) => {
+    let newActiveWindowIndex = state.activeWindowIndex;
+    if (index !== state.activeWindowIndex) {
+      newActiveWindowIndex = index;
+    }
+    return { activeWindowIndex: newActiveWindowIndex };
+  }),
+
+  minimizeWindow: (index, coordinates) => set((state) => {
+    const minimizedWindow = (
+      <AppWindow
+        title={state.windows[index].props.title}
+        position={coordinates}
+      />
+    );
+    const minimizedWindows = [...state.minimizedWindows, minimizedWindow];
+    const windows = state.windows.filter((_, i) => i !== index);
+    return { windows, minimizedWindows };
+  }),
+
+  restoreWindow: (index) => set((state) => {
+    const restoredWindow = state.minimizedWindows[index];
+    const minimizedWindows = state.minimizedWindows.filter((_, i) => i !== index);
+    const windows = [...state.windows, restoredWindow];
+    return { windows, minimizedWindows };
+  }),
+
+  handleEditorClick: (id) => set((state) => ({
+    activeEditorId: id,
+  })),
+}));
+
+
+const App = () => {
+  const { windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
+
+ return (
+     <Desktop background="grey">
+       <Dock addWindow={addWindow} />
+       {windows.map((window, index) => (
+         <div
+           key={index}
+           style={{
+             position: "relative",
+             zIndex: index === activeWindowIndex ? 10 : 0,
+           }}
+         >
+           <AppWindow
+             className={`app-window-${index}`}
+             title={window.props.title}
+             isActive={index === activeWindowIndex}
+             onClick={() => handleWindowClick(index)}
+             onMinimize={() => minimizeWindow(index)}
+           />
+         </div>
+       ))}
+       <Bottom
+         minimizedWindows={minimizedWindows}
+         restoreWindow={restoreWindow}
+       />
+     </Desktop>
+   );
+ };
+ 
+ export default App;

@@ -52,7 +52,6 @@ const AppWindow = ({ title, isActive, onClick }) => {
 			  <Draggable handle=".TextEditIcon" onStop={handleTextEditIconDrag}>
 				<div
 				  onDoubleClick={handleDoubleClick}
-				  style={{ position: "fixed", bottom: "0", right: "0" }}
 				>
 				  <TextEditIcon />
 				</div>
