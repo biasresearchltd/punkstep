@@ -30,7 +30,7 @@ const StyledWindowButton = styled.div`
   user-drag: none;
   user-select: none;
 
-  margin: 2px;
+  margin: 3px;
   &:hover {
     background-color: #ddd;
   }

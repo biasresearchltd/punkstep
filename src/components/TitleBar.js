@@ -3,14 +3,11 @@ import WindowButton from "./WindowButton";
 import styled from "styled-components";
 
 const Container = styled.div`
-  height: 20px;
+  height: 21px;
   width: 100%;
   display: flex;
   justify-content: space-between;
-  border-top: 1px solid #FCFCFE;
-  border-left: 1px solid #FCFCFE;
-  border-bottom: 1px solid #565656;
-  border-right: 1px solid #565656;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
   font-size: 9px;
   font-family: NeueBitBold;
   background: #AAAAAA;

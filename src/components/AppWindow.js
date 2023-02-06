@@ -24,8 +24,8 @@ const AppWindow = ({ title, isActive, onClick }) => {
 		<div
 		  onClick={onClick}
 		  style={{
-			width: minimized ? "64px" : "500px",
-			height: minimized ? "64px" : "300px",
+			width: minimized ? "64px" : "666px",
+			height: minimized ? "64px" : "333px",
 			background: "none",
 			border: minimized ? "0px solid #000000" : "1px solid #000000",
 			transition: "height 0.3s ease-in-out, width 0.3s ease-in-out, border 0.3s ease-in-out",
