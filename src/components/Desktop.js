@@ -2,6 +2,19 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 import './Desktop.css';
 
+const bgc = ({
+  color: {
+	green: '#00FF46',
+	blue: '#0075FF',
+	orange: '#FF7F00',
+	yellow: '#FFFF00',
+	chartreuse: '#B5FF00',
+	pink: '#FF00C4',
+	darkback: '#192817'
+  }
+ }
+);
+
 const StyledDesktop = styled.div`
 height: 100vh;
 width: 100vw;
@@ -33,7 +46,7 @@ setActiveWindow(id);
 };
 
 return (
-  <div className="checkered3">
+  
 	<StyledDesktop background={background}>
 	  <div className="container">
 		{
