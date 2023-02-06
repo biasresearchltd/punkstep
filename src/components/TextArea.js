@@ -18,6 +18,7 @@ const Scrollbar = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  bottom: 0;
 
   .scrollbar {
 	position: absolute;

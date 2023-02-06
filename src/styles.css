@@ -22,3 +22,14 @@ img {
   user-drag: none;
   user-select: none;
 }
+
+.checkered3 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #0075FF; */
+  background-size: 4px 4px;
+  background-position: 0 0, 2px 2px;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85)),
+          linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85));
+}

@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { create } from "zustand";
 import Dock from './components/Dock';
 import Bottom from './components/Bottom';
 import AppWindow from './components/AppWindow';
+import BackgroundColor from './components/BackgroundColor';
+import Punk from './PUNK.gif';
 import './styles.css';
 
 const DesktopContainer = styled.div`
@@ -25,33 +27,6 @@ const Desktop = ({ children, background }) => {
     </DesktopContainer>
   );
 };
-
-const myTheme = ({
-  config: {
-    useSystemColorMode: false,
-    
-  },
-  colors: {
-      green: '#00FF46',
-      blue: '#0075FF',
-      orange: '#FF7F00',
-      yellow: '#FFFF00',
-      chartreuse: '#B5FF00',
-      pink: '#FF00C4',
-      darkback: '#192817'
-  },
-  styles: {
-    global: (props) => ({
-      body: {
-        bg: 'darkback',
-        backgroundImage: 'linear-gradient(45deg, #0075FF 25%, transparent 25%), linear-gradient(-45deg, #0075FF 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #0075FF 75%), linear-gradient(-45deg, transparent 75%, #0075FF 75%)linear-gradient(45deg, #B5FF00 25%, transparent 25%), linear-gradient(-45deg, #B5FF00 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #B5FF00 75%), linear-gradient(-45deg, transparent 75%, #B5FF00 75%)',
-        backgroundSize: '40px 40px',
-        backgroundPosition: '0 0, 0 20px, 20px -20px, -20px 0px'
-      }
-    })
-  }
-});
-
 
 const useApp = create((set) => ({
   windows: [<AppWindow title="Mindware.txt" />],
@@ -102,38 +77,55 @@ const useApp = create((set) => ({
   handleEditorClick: (id) => set((state) => ({
     activeEditorId: id,
   })),
+    
 }));
 
 
 const App = () => {
-  const { windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
+  const { background, windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
 
- return (
-     <Desktop background="#0075FF">
-       <Dock addWindow={addWindow} />
-       {windows.map((window, index) => (
-         <div
-           key={index}
-           style={{
-             position: "relative",
-             zIndex: index === activeWindowIndex ? 10 : 0,
-           }}
-         >
-           <AppWindow
-             className={`app-window-${index}`}
-             title={window.props.title}
-             isActive={index === activeWindowIndex}
-             onClick={() => handleWindowClick(index)}
-             onMinimize={() => minimizeWindow(index)}
-           />
-         </div>
-       ))}
-       <Bottom
-         minimizedWindows={minimizedWindows}
-         restoreWindow={restoreWindow}
-       />
-     </Desktop>
-   );
+return (
+    <Desktop background={BackgroundColor}>
+      <div className="checkered3-wrapper" style={{ width: '100%', height: '100%'}}>
+        <div className="checkered3" style={{ height: '100vh' }}>
+          <Dock addWindow={addWindow} />
+          {windows.map((window, index) => (
+            <div
+              key={index}
+              style={{
+                position: "relative",
+                zIndex: index === activeWindowIndex ? 10 : 0,
+              }}
+            >
+              <img src={Punk} 
+                   style={{
+                     position: "absolute",
+                     top: "50%",
+                     left: "50%",
+                     transform: "translate(-50%, -50%) scale(0.333)",
+                     display: 'flex'
+                   }}
+               />
+
+              <AppWindow
+                className={`app-window-${index}`}
+                title={window.props.title}
+                isActive={index === activeWindowIndex}
+                onClick={() => handleWindowClick(index)}
+                onMinimize={() => minimizeWindow(index)}
+              />
+            </div>
+          ))}
+          <Bottom
+            minimizedWindows={minimizedWindows}
+            restoreWindow={restoreWindow}
+          />
+        </div>
+      </div>
+    </Desktop>
+
+  );
+
  };
  
  export default App;
