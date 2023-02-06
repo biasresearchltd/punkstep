@@ -6,6 +6,7 @@ import Logo from './components/Logo';
 import Bottom from './components/Bottom';
 import AppWindow from './components/AppWindow';
 import Recycle from './components/Recycle';
+import Jpeg from './components/JPG';
 import BackgroundColor from './components/BackgroundColor';
 
 import './styles.css';
@@ -111,6 +112,7 @@ return (
             </div>
           ))}
           <Recycle />
+          <Jpeg filename="monkey" />
           <Bottom
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
