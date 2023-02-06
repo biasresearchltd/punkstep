@@ -20,11 +20,10 @@ const Container = styled.div`
   -moz-user-drag: none;
   -ms-user-drag: none;
   pointer-events: none;
+  z-index: 0;
 `;
 
 const Image = styled.img`
-  width: 64px;
-  height: 64px;
   user-drag: none;
   user-select: none;
   pointer-events: none;
@@ -34,15 +33,16 @@ const Image = styled.img`
 const Logo = ({ onClick }) => (
 
 <Container onClick={onClick}>
-<img src={Punk} 
+<Image src={Punk} 
      style={{
        position: "absolute",
        top: "50%",
        left: "50%",
-       transform: "translate(-50%, -50%) scale(0.333)",
+       transform: "translate(-50%, -50%) scale(0.444)",
        display: 'flex',
      }}
- /></Container>
+ />
+ </Container>
 
 );
 
