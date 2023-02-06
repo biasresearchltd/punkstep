@@ -26,6 +26,33 @@ const Desktop = ({ children, background }) => {
   );
 };
 
+const myTheme = ({
+  config: {
+    useSystemColorMode: false,
+    
+  },
+  colors: {
+      green: '#00FF46',
+      blue: '#0075FF',
+      orange: '#FF7F00',
+      yellow: '#FFFF00',
+      chartreuse: '#B5FF00',
+      pink: '#FF00C4',
+      darkback: '#192817'
+  },
+  styles: {
+    global: (props) => ({
+      body: {
+        bg: 'darkback',
+        backgroundImage: 'linear-gradient(45deg, #0075FF 25%, transparent 25%), linear-gradient(-45deg, #0075FF 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #0075FF 75%), linear-gradient(-45deg, transparent 75%, #0075FF 75%)linear-gradient(45deg, #B5FF00 25%, transparent 25%), linear-gradient(-45deg, #B5FF00 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #B5FF00 75%), linear-gradient(-45deg, transparent 75%, #B5FF00 75%)',
+        backgroundSize: '40px 40px',
+        backgroundPosition: '0 0, 0 20px, 20px -20px, -20px 0px'
+      }
+    })
+  }
+});
+
+
 const useApp = create((set) => ({
   windows: [<AppWindow title="Mindware.txt" />],
   backgroundPosition: { x: 0, y: 0 },
@@ -82,7 +109,7 @@ const App = () => {
   const { windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
 
  return (
-     <Desktop background="grey">
+     <Desktop background="#0075FF">
        <Dock addWindow={addWindow} />
        {windows.map((window, index) => (
          <div
