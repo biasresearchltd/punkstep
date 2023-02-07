@@ -18,8 +18,10 @@ const Scrollbar = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+  box-sizing: border-box;
 
   .scrollbar {
+	box-sizing: border-box;
 	position: absolute;
 	margin-left: 2.5px;
 	top: 0;

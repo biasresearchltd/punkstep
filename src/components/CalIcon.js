@@ -62,6 +62,11 @@ const Day = styled.p`
   margin: 0;
   padding: 0;
   user-select: none;
+  
+  @media only screen and (max-width: 500px) {
+    margin-top: -1px;
+    transform: scale(1.666, 1.42);
+  }
 `;
 
 const Month = styled.p`
@@ -79,7 +84,8 @@ const Month = styled.p`
     margin-top: 0px;
   }
   @media only screen and (max-width: 500px) {
-    margin-top: -5px;
+    margin-top: -3px;
+    transform: scale(1.666, 1);
   }
 `;
 

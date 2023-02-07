@@ -28,17 +28,21 @@ const Dock = ({ addWindow }) => {
 	  }
 	}, 500);
   };
+  
+  const handleClick = () => {
+	window.open("https://www.twitter.com/ppuunnkkdotcom", "_blank");
+  };
 
 
   return (
 	<>
-	  <div style={{ position: "fixed", top: 0, right: "2px" }}>
+	  <div style={{ position: "fixed", top: 0, right: "3px" }}>
 		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", alignSelf: 'flex-start' }}>
 		  <PunkIcon />
 		  <CalIcon />
 		  <TextEditIcon onClick={handleTextEditClick} />
 		  <OKSHIcon />
-		  <RoboIcon />
+		  <RoboIcon onClick={handleClick}/>
 		  <BlankIcon />
 		</div>
 	  </div>

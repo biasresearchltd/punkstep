@@ -18,6 +18,7 @@ const ColorSelector = () => {
 
   useEffect(() => {
 	const handleKeyPress = (event) => {
+	  if (document.activeElement.tagName === 'TEXTAREA') return;
 	  if (event.key === 'ArrowRight') {
 		const currentIndex = colors.indexOf(selectedColor);
 		const nextIndex = (currentIndex + 1) % colors.length;
