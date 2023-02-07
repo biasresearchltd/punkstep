@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from 'styled-components';
 import { create } from "zustand";
 import Dock from './components/Dock';
 import Logo from './components/Logo';
+import Menu from './components/Menu';
 import Bottom from './components/Bottom';
+import CrapWindow from './components/AppWindow';
 import AppWindow from './components/AppWindow';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
@@ -33,7 +35,7 @@ const Desktop = ({ children, background }) => {
 };
 
 const useApp = create((set) => ({
-  windows: [<AppWindow title="Mindware.txt" />],
+  windows: [],
   backgroundPosition: { x: 0, y: 0 },
   activeWindowIndex: 0,
   text: "",
@@ -90,6 +92,7 @@ const App = () => {
 
 return (
     <Desktop background={BackgroundColor}>
+    <Menu />
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
             <div
