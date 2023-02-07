@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
+import '../styles.css';
 import './Desktop.css';
 
 const bgc = ({
@@ -50,7 +51,7 @@ setActiveWindow(id);
 };
 
 return (
-  
+  <>
 	<StyledDesktop background={background}>
 	  <div className="container">
 		{
@@ -64,8 +65,8 @@ return (
 		}
 	  </div>
 	</StyledDesktop>
-  </div>
-);
+  </>
+  );
 };
 
 export default Desktop;

@@ -28,6 +28,10 @@ const Image = styled.img`
   user-select: none;
   pointer-events: none;
   z-index: 0;
+  
+  @media only screen and (max-width: 500px) {
+    transform: scale(.21);
+  }
 `;
 
 const Logo = ({ onClick }) => (
@@ -38,7 +42,7 @@ const Logo = ({ onClick }) => (
        position: "absolute",
        top: "50%",
        left: "50%",
-       transform: "translate(-50%, -50%) scale(0.444)",
+       transform: "translate(-50%, -50%) scale(0.42)",
        display: 'flex',
      }}
  />

@@ -21,6 +21,7 @@ const DesktopContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+ 
 `;
 
 const Desktop = ({ children, background }) => {
@@ -89,8 +90,6 @@ const App = () => {
 
 return (
     <Desktop background={BackgroundColor}>
-      <div className="checkered3-wrapper" style={{ width: '100%', height: '100%'}}>
-        <div className="checkered3" style={{ height: '100vh', width: '100vw' }}>
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
             <div
@@ -101,7 +100,7 @@ return (
               }}
             >
               <Logo />
-
+    
               <AppWindow
                 className={`app-window-${index}`}
                 title={window.props.title}
@@ -117,8 +116,6 @@ return (
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
           />
-        </div>
-      </div>
     </Desktop>
 
   );

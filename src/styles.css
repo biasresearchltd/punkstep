@@ -22,6 +22,7 @@ body {
   user-drag: none;
   user-select: none;
   border: 1px solid #000000;
+  box-sizing: border-box;
 }
 
 .checkered3 {

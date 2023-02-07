@@ -1,5 +1,5 @@
 import React from "react";
-import IconImage from "../icons/PUNKBOCOP.png";
+import IconImage from "../icons/RecycleIcon-24.png";
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -10,8 +10,8 @@ const Container = styled.div`
   display: inline-block;
   margin: 0;
   padding: 0;
-  bottom: 2px;
-  right: 2px;
+  bottom: 3px;
+  right: 3px;
   image-rendering: pixelated;
 `;
 
