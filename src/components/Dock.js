@@ -36,7 +36,7 @@ const Dock = ({ addWindow }) => {
 
   return (
 	<>
-	  <div style={{ position: "fixed", top: 0, right: "3px" }}>
+	  <div style={{ zIndex: 12, position: "absolute", top: "1px", right: "3px", borderRight: "1px solid black", borderBottom: "1px solid black" }}>
 		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", alignSelf: 'flex-start' }}>
 		  <PunkIcon />
 		  <CalIcon />
