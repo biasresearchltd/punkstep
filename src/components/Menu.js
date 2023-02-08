@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
-import AppWindow from './AppWindow2';
+
 
 const menuItems = [
   { header: 'Workspace', items: [
@@ -116,10 +116,7 @@ const Menu = () => {
 		  <MenuItem key={index}>{title}</MenuItem>
 		))}
 	  </div>
-	  <AppWindow
-		setTitle={title => setActiveAppWindow({ ...activeAppWindow, title })}
-		setType={type => setActiveAppWindow({ ...activeAppWindow, type })}
-	  />
+	  
 	</MenuWrapper>
   );
 };
