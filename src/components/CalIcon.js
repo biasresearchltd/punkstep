@@ -9,7 +9,7 @@ const Container = styled.div`
   display: inline-block;
   margin: 0;
   padding: 0;
-  cursor: pointer;
+  cursor: default;
   image-rendering: pixelated;
 `;
 

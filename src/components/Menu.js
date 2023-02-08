@@ -52,8 +52,6 @@ const MenuWrapper = styled.div`
   background: ${props => props.background};
   overflow: hidden;
   border: none;
-  user-drag: none;
-  user-select: none;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #000;
@@ -74,7 +72,6 @@ const MenuHead = styled.div`
   user-select: none;
   padding: 4px;
   z-index: 99999999;
-  text-transform: uppercase;
 `;
 
 const MenuItem = styled.div`

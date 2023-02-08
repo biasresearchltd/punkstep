@@ -35,7 +35,7 @@ const Desktop = ({ children, background }) => {
 };
 
 const useApp = create((set) => ({
-  windows: [<AppWindow title="Mindware.txt" />],
+  windows: [<AppWindow title="Mindware.txt"  />],
   backgroundPosition: { x: 0, y: 0 },
   activeWindowIndex: 0,
   text: "",
