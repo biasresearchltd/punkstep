@@ -20,7 +20,10 @@ const AppWindow = ({ title, isActive, onClick }) => {
   };
 
   return closed ? null : (
-	  <Draggable handle=".windowtitle, .windowfooter">
+	  <Draggable
+	    handle=".windowtitle, .windowfooter"
+		
+		>
 		<div
 		  onClick={onClick}
 		  style={{

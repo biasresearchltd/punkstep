@@ -32,6 +32,10 @@ const Dock = ({ addWindow }) => {
   const handleClick = () => {
 	window.open("https://www.twitter.com/ppuunnkkdotcom", "_blank");
   };
+  
+  const latestPoster = () => {
+	window.open("https://zora.co/collections/0x8b50cb0efe5a278367499c0932e6627048473647", "_blank");
+  };
 
 
   return (
@@ -42,7 +46,7 @@ const Dock = ({ addWindow }) => {
 		  <CalIcon />
 		  <TextEditIcon onClick={handleTextEditClick} />
 		  <OKSHIcon />
-		  <RoboIcon onClick={handleClick}/>
+		  <RoboIcon onClick={latestPoster}/>
 		  <BlankIcon />
 		</div>
 	  </div>

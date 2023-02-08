@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   width: 64px;
   height: 64px;
-  cursor: default;
+  cursor: pointer;
   display: inline-block;
   margin: 0;
   padding: 0;
@@ -13,6 +13,7 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
+  cursor: pointer;
   width: 64px;
   height: 64px;
   user-drag: none;
