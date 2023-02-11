@@ -6,17 +6,18 @@ import Logo from './components/Logo';
 import Menu from './components/Menu';
 import Bottom from './components/Bottom';
 import CrapWindow from './components/AppWindow';
-import AppWindow from './components/AppWindow';
+import AppWindow from './components/AppWindow2';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
-import BackgroundColor from './components/BackgroundColor';
-
+import ColorSelector from './components/ColorSelector';
 import './styles.css';
 
 const DesktopContainer = styled.div`
   height: 100vh;
   width: 100vw;
   background: ${props => props.background};
+  background-image: url(${props => props.backgroundImage});
+  background-repeat: repeat;
   overflow: hidden;
   border: none;
   touch-action: none;
@@ -26,9 +27,13 @@ const DesktopContainer = styled.div`
  
 `;
 
-const Desktop = ({ children, background }) => {
+const Desktop = ({ children }) => {
+  const selectedValue = ColorSelector();
   return (
-    <DesktopContainer background={background}>
+    <DesktopContainer 
+      background={selectedValue.type === "color" ? selectedValue.value : null}
+      backgroundImage={selectedValue.type === "image" ? selectedValue.value : null}
+    >
       {children}
     </DesktopContainer>
   );
@@ -91,7 +96,7 @@ const App = () => {
   const { background, windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
 
 return (
-    <Desktop background={BackgroundColor}>
+    <Desktop background={background}>
     <Menu />
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
@@ -102,10 +107,10 @@ return (
                 zIndex: index === activeWindowIndex ? 10 : 0,
               }}
             >
-              <Logo />
-    
               <AppWindow
                 className={`app-window-${index}`}
+                type="TextEdit"
+                content="FUCKER"
                 title={window.props.title}
                 isActive={index === activeWindowIndex}
                 onClick={() => handleWindowClick(index)}
@@ -113,6 +118,7 @@ return (
               />
             </div>
           ))}
+          <Logo />
           <Recycle />
           <Jpeg filename="monkey" />
           <Bottom

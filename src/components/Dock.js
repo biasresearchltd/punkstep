@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import TextEditor from "./TextEditor";
 import PunkIcon from "./Icon";
 import CalIcon from "./CalIcon";
 import TextEditIcon from "./TextEditIcon";

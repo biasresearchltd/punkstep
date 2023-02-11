@@ -44,7 +44,7 @@ const Image = styled.img`
 const TextEditIcon = ({ onClick }) => (
 
 <Container onClick={onClick}>
-<Image src={IconImage} />
+<Image src={IconImage} onClick={onClick} />
 </Container>
 
 );

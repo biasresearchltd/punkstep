@@ -12,7 +12,7 @@ const Container = styled.div`
   flex-direction: column;
   margin: 0;
   padding: 0;
-  bottom: 42px;
+  bottom: 50%;
   left: 28px;
   image-rendering: pixelated;
   user-drag: none;
