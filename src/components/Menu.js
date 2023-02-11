@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
-
+import Arrow from "../icons/PunkStep-RArrow.png";
 
 const menuItems = [
   { header: 'Workspace', items: [
@@ -42,6 +42,20 @@ const menuItems3 = [
   ]},
 ]
   
+const subMenuItems = [
+  { header: 'Info', items: [
+  { id: 1, title: 'Info', action: () => console.log('Item 1') },
+  { id: 2, title: 'File', action: () => console.log('Item 2') },
+  { id: 3, title: 'Edit', action: () => console.log('Item 3') },
+  { id: 4, title: 'Disk', action: () => console.log('Item 4') },
+  { id: 5, title: 'View', action: () => console.log('Item 5') },
+  { id: 6, title: 'Tools', action: () => console.log('Item 6') },
+  { id: 7, title: 'Windows', action: () => console.log('Item 7') },
+  { id: 8, title: 'Services', action: () => console.log('Item 8') },
+  { id: 9, title: 'Hide', action: () => console.log('Item 9') },
+  { id: 10, title: 'Log Out', action: () => console.log('Log Out') },
+  ]},
+]
   
 const MenuWrapper = styled.div`
   position: absolute;
@@ -57,6 +71,7 @@ const MenuWrapper = styled.div`
   border-right: 1px solid #000;
   border-bottom: 1px solid #000;
   z-index: 99999999;
+  image-rendering: pixelated;
 `;
 
 const MenuHead = styled.div`
@@ -86,6 +101,16 @@ const MenuItem = styled.div`
   user-select: none;
   padding: 4px;
   z-index: 99999999;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const RArrow = styled.img`
+  height: 7px;
+  width: 7px;
+  user-drag: none;
+  user-select: none;
 `;
 
 const Menu = () => {
@@ -110,7 +135,7 @@ const Menu = () => {
 	  <div>
 		<MenuHead>{header}</MenuHead>
 		{menuTitles.map((title, index) => (
-		  <MenuItem key={index}>{title}</MenuItem>
+		  <MenuItem key={index}>{title}<RArrow src={Arrow} /></MenuItem>
 		))}
 	  </div>
 	  

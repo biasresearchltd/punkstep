@@ -13,10 +13,10 @@ const bgc = {
 
 const colors = Object.values(bgc);
 const images = [
-  "../bgimages/Punk-Mother-Mars-Tile.png",
-  "url('../bgimages/Punk-Mother-Mars-Tile.png')",
-  "url('../bgimages/Punk-Mother-Mars-Tile.png')",
-  "url('../bgimages/Punk-Mother-Mars-Tile.png')",
+  "./bgimages/Punk-Mother-Mars-Tile.png",
+  "./bgimages/Punk-Mother-Mars-Tile.png",
+  "./bgimages/Punk-Mother-Mars-Tile.png",
+  "./bgimages/Punk-Mother-Mars-Tile.png",
 ];
 
 const ColorSelector = () => {
@@ -35,9 +35,13 @@ const ColorSelector = () => {
 			? (currentIndex + 1) % colors.length
 			: (currentIndex - 1 + colors.length) % colors.length;
 		  setSelectedValue({ type: "color", value: colors[nextIndex] });
+		} else if (selectedValue.type === "image") {
+		  setSelectedValue({ type: "color", value: colors[Math.floor(Math.random() * colors.length)] });
 		}
 	  } else if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-		if (selectedValue.type === "image") {
+		if (selectedValue.type === "color") {
+		  setSelectedValue({ type: "image", value: images[0] });
+		} else if (selectedValue.type === "image") {
 		  const currentIndex = images.indexOf(selectedValue.value);
 		  const nextIndex = event.key === 'ArrowUp'
 			? (currentIndex - 1 + images.length) % images.length
