@@ -29,11 +29,11 @@ const StyledWindowButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, .5px .5px #000000;
   user-drag: none;
   user-select: none;
 
-  margin: 3px;
+  margin: 1px;
   &:hover {
     background-color: #ddd;
   }

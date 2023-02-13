@@ -6,6 +6,12 @@ body {
   margin: 0 auto;
 }
 
+body {
+  cursor: url("./icons/PuNKStep-Cursor.png"), auto;
+  image-rendering: pixelated;
+}
+
+
 @font-face {
   font-family: 'NeueBit';
   src: url('../fonts/ppneuebit-regular-webfont.woff2') format('woff');
