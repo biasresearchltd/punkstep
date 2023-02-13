@@ -121,6 +121,7 @@ return (
           <Logo />
           <Recycle />
           <Jpeg filename="monkey" />
+          <Jpeg filename="something how far does this go" />
           <Bottom
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
