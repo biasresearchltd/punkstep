@@ -5,7 +5,6 @@ import Dock from './components/Dock';
 import Logo from './components/Logo';
 import Menu from './components/Menu';
 import Bottom from './components/Bottom';
-import CrapWindow from './components/AppWindow';
 import AppWindow from './components/AppWindow2';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
@@ -121,6 +120,7 @@ return (
           <Logo />
           <Recycle />
           <Jpeg filename="monkey" />
+          <Jpeg filename="something how far does this go" />
           <Bottom
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
