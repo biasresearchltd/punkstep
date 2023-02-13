@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import IconImage from "../icons/types/JPG.ico";
 import styled from 'styled-components';
 import Draggable from "react-draggable";
@@ -17,6 +17,7 @@ const Container = styled.div`
   image-rendering: pixelated;
   user-drag: none;
   user-select: none;
+  filter: ${props => props.isInverted ? 'invert(100%)' : 'invert(0%)'};
 `;
 
 const Image = styled.img`
@@ -31,19 +32,27 @@ const Text = styled.p`
   font-size: 9px;
   font-family: 'NeueBitBold';
   margin-top: 0px;
-  background-color: #AAA;
+  background-color:  ${props => props.isInverted ? '#00FF00' : '#AAA'};
   border: solid 1px #000;
   width: auto;
+  color: ${props => props.isInverted ? '#AAA' : '#000'};
 `;
 
-const Icon = ( {filename} ) => {
+const Icon = ( {filename, onClick} ) => {
+  const [isInverted, setIsInverted] = useState(false);
+
+  const handleClick = () => {
+    setIsInverted(!isInverted);
+    onClick();
+  };
+
   return (
-	<Draggable>
-	<Container>
-	<Image src={IconImage} alt="icon" />
-	<Text>{filename}</Text>
-	</Container>
-	</Draggable>
+  <Draggable>
+  <Container isInverted={isInverted} onClick={handleClick}>
+  <Image src={IconImage} alt="icon" />
+  <Text isInverted={isInverted}>{filename}</Text>
+  </Container>
+  </Draggable>
   );
 };
 
