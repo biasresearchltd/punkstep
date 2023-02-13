@@ -95,6 +95,7 @@ const MenuItem = styled.div`
   margin-bottom: 1px;
   font-family: NeueBit;
   font-size: 9px;
+  font-weight: 555;
   border-right: 1px solid #000;
   box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
   user-drag: none;

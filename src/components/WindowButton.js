@@ -1,8 +1,6 @@
 import React from "react";
 import Minimize from "../icons/Minimize.png";
 import Close from "../icons/Close.png";
-import Up from "../icons/Close.png"
-import Down from "../icons/Close.png"
 import styled from "styled-components";
 
 const IconImg = styled.img`

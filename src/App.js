@@ -10,6 +10,7 @@ import AppWindow from './components/AppWindow2';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
 import ColorSelector from './components/ColorSelector';
+import PunkMotherMars from "./components/bgimages/Punk-Mother-Mars-Tile.png";
 import './styles.css';
 
 const DesktopContainer = styled.div`
@@ -31,8 +32,8 @@ const Desktop = ({ children }) => {
   const selectedValue = ColorSelector();
   return (
     <DesktopContainer 
-      background={selectedValue.type === "color" ? selectedValue.value : null}
-      backgroundImage={selectedValue.type === "image" ? selectedValue.value : null}
+      background={selectedValue.value}
+      backgroundImage={selectedValue.value}
     >
       {children}
     </DesktopContainer>
@@ -93,10 +94,10 @@ const useApp = create((set) => ({
 
 
 const App = () => {
-  const { background, windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
+  const { background, windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, selectedValue, windowsClassName } = useApp();
 
 return (
-    <Desktop background={background}>
+    <Desktop background={selectedValue.value} backgroundImage={selectedValue.value}>
     <Menu />
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
@@ -121,6 +122,7 @@ return (
           <Logo />
           <Recycle />
           <Jpeg filename="monkey" />
+          <Jpeg filename="something how far does this go" />
           <Bottom
             minimizedWindows={minimizedWindows}
             restoreWindow={restoreWindow}
