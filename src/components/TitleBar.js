@@ -14,6 +14,7 @@ const Container = styled.div`
   image-rendering: pixelated;
   user-drag: none;
   user-select: none;
+  box-size: border-box;
 
   &.active {
 	background: #000;

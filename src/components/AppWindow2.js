@@ -2,11 +2,10 @@ import React, { useState, useEffect } from 'react';
 import create from 'zustand';
 import WindowButton from "./WindowButton";
 import TextArea from "./TextArea";
-import Minimize from "../icons/Minimize.png";
-import Close from "../icons/Close.png";
+import styled from 'styled-components';
 
 const useAppWindow = create((set, get) => ({
-	title: 'Default Title',
+	title: 'Mindware.txt',
 	type: 'TextEdit',
 	content: "The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind. Then, try changing this text.",
 	position: {
@@ -19,6 +18,7 @@ const useAppWindow = create((set, get) => ({
 		height: 333
 	},
 	isMinimized: false,
+    setIsMinimized: isMinimized => set({ isMinimized }),
 	isClosed: false,
 	setTitle: title => set({ title }),
 	setType: type => set({ type }),
@@ -26,9 +26,39 @@ const useAppWindow = create((set, get) => ({
 	setPosition: position => set({ position }),
 	setIsActive: isActive => set({ isActive }),
 	setSize: size => set({ size }),
-	setIsMinimized: isMinimized => set({ isMinimized }),
 	setIsClosed: isClosed => set({ isClosed })
 }));
+
+const FooterContainer = styled.div`
+  position: absolute;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  height: 9px;
+  width: 100%;
+`;
+
+const WindowFooterMid = styled.div`
+  bottom: 0;
+  z-index: 2;
+  height: 9px;
+  width: 100%;
+  background: #AAA;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, .5px .5px #000000;
+  box-size: border-box;
+`;
+
+const WindowFooterSide = styled.div`
+  bottom: 0;
+  z-index: 2;
+  height: 9px;
+  width: 42px;
+  background: #AAA;
+  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, .5px .5px #000000;
+  box-size: border-box;
+`;
 
 const AppWindow = ({}) => {
   const {
@@ -101,6 +131,11 @@ const AppWindow = ({}) => {
 	  case 'type3':
 		return <TextArea content={content} />;
 	}};
+	
+	const handleRestore = () => {
+	  setIsMinimized(false);
+	};
+
   
 return (
 	<>
@@ -126,20 +161,22 @@ return (
 			  display: 'flex',
 			  justifyContent: 'space-between',
 			  fontFamily: 'NeueBitBold',
-			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 0 1px #000000',
+			  boxSize: 'border-box',
+			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
+			  zIndex: '9'
 			}}
 			onMouseDown={handleMouseDown}
 			onDoubleClick={() => !editingTitle && setIsMinimized(!isMinimized)}
 		  >
 			{!isMinimized && (
-			  <div style={{ display: 'flex', alignItems: 'center' }}>
+			  <div style={{ display: 'flex', alignItems: 'center', spacing: '0', margin: '0', padding: '0' }}>
 				<WindowButton icon="minimize" onClick={() => setIsMinimized(true)} />
 			  </div>
 			)}
 			<div style={{ display: 'flex', alignItems: 'center' }}>
 			  {!editingTitle ? (
 				<div
-				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '9px' : '9px' }}
+				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '7px' : '9px', textTransform: isMinimized ? 'uppercase' : 'none', fontFamily: isMinimized ? 'NeueBitBold' : ''}}
 				  onDoubleClick={() => setEditingTitle(true)}
 				>
 				  {title}
@@ -164,6 +201,12 @@ return (
 			{!isMinimized && (
 			  <>
 				{renderContent()}
+				
+				<FooterContainer>
+				  <WindowFooterSide />
+					<WindowFooterMid />
+				  <WindowFooterSide />
+				</FooterContainer>
 			  </>
 			)}
 		  </div>
