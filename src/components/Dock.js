@@ -5,6 +5,7 @@ import TextEditIcon from "./TextEditIcon";
 import BlankIcon from "./BlankIcon";
 import OKSHIcon from "./OKSHIcon";
 import RoboIcon from "./RoboIcon";
+import PEIcon from "./PEIcon";
 import Window from './AppWindow';
 
 const Dock = ({ addWindow }) => {
@@ -27,6 +28,10 @@ const Dock = ({ addWindow }) => {
   const latestPoster = () => {
 	window.open("https://zora.co/collections/0x8b50cb0efe5a278367499c0932e6627048473647", "_blank");
   };
+  
+  const punkEnergy = () => {
+	window.open("https://www.punk.energy", "_blank");
+  };
 
 
   return (
@@ -37,8 +42,8 @@ const Dock = ({ addWindow }) => {
 		  <CalIcon />
 		  <TextEditIcon onClick={handleTextEditClick} />
 		  <OKSHIcon />
-		  <RoboIcon onClick={latestPoster}/>
-		  <BlankIcon />
+		  <RoboIcon onClick={latestPoster} />
+		  <PEIcon onClick={punkEnergy} />
 		</div>
 	  </div>
 	</>
