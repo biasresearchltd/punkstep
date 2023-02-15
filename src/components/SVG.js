@@ -5,8 +5,8 @@ import Draggable from "react-draggable";
 
 const Container = styled.div`
   position: float;
-  width: 666px;
-  height: 666px;
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;;
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -92,8 +92,8 @@ const handleMouseMove = (event) => {
       const deltaY = event.movementY;
       setWidth(width + deltaX);
       setHeight(height + deltaY);
-      const skewXValue = (height - 64) / 64;
-      const skewYValue = (width - 64) / 64;
+      const skewXValue = (height) / 64;
+      const skewYValue = (width) / 64;
       const transformValue = `skew(${skewYValue}deg, ${skewXValue}deg)`;
       Image.style.transform = transformValue;
     }
