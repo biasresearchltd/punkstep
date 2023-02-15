@@ -1,32 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import create from 'zustand';
+import Draggable from 'react-draggable';
 import WindowButton from "./WindowButton";
 import TextArea from "./TextArea";
+import ImgArea from "./ImgView";
+import { v4 as uuidv4 } from 'uuid';
 import styled from 'styled-components';
 
 const useAppWindow = create((set, get) => ({
-	title: 'Mindware.txt',
-	type: 'TextEdit',
-	content: "The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind. Then, try changing this text.",
-	position: {
-		x: 0,
-		y: 0
-	},
-	isActive: false,
-	size: {
-		width: 666,
-		height: 333
-	},
-	isMinimized: false,
-    setIsMinimized: isMinimized => set({ isMinimized }),
-	isClosed: false,
-	setTitle: title => set({ title }),
-	setType: type => set({ type }),
-	setContent: content => set({ content }),
-	setPosition: position => set({ position }),
-	setIsActive: isActive => set({ isActive }),
-	setSize: size => set({ size }),
-	setIsClosed: isClosed => set({ isClosed })
+  title: 'Mindware.txt',
+  type: 'TextEdit',
+  content:
+	"The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind. Then, try changing this text.",
+  position: {
+	x: 0,
+	y: 0,
+  },
+  isActive: false,
+  size: {
+	width: 666,
+	height: 333,
+  },
+  isMinimized: false,
+  setIsMinimized: (isMinimized) => {
+	const { position, id } = get();
+	const isMinimizedList = [...get().isMinimizedList];
+	const isActive = !isMinimized;
+	const found = isMinimizedList.findIndex((minimizedWindow) => minimizedWindow.id === id);
+
+	if (isMinimized) {
+	  isMinimizedList.push({ id, position, isActive });
+	} else {
+	  isMinimizedList.splice(found, 1);
+	}
+
+	set({ isMinimized, isActive, isMinimizedList });
+  },
+  isClosed: false,
+  setTitle: (title) => set({ title }),
+  setType: (type) => set({ type }),
+  setContent: (content) => set({ content }),
+  setPosition: (position) => set({ position }),
+  setIsActive: (isActive) => set({ isActive }),
+  setSize: (size) => set({ size }),
+  setIsClosed: (isClosed) => set({ isClosed }),
+  id: uuidv4(),
+  isMinimizedList: [],
 }));
 
 const FooterContainer = styled.div`
@@ -70,51 +89,27 @@ const AppWindow = ({}) => {
 	size,
 	isMinimized,
 	isClosed,
+	setIsMinimized,
 	setTitle,
 	setType,
 	setContent,
 	setPosition,
 	setIsActive,
 	setSize,
-	setIsMinimized,
-	setIsClosed
+	setIsClosed,
+	id,
+	isMinimizedList,
   } = useAppWindow();
 
   const [mouseDown, setMouseDown] = useState(false);
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-	document.addEventListener('mousemove', handleMouseMove);
-	document.addEventListener('mouseup', handleMouseUp);
-
-	return () => {
-	  document.removeEventListener('mousemove', handleMouseMove);
-	  document.removeEventListener('mouseup', handleMouseUp);
-	};
-  }, [mouseDown]);
+  
   
   useEffect(() => {
 	  setContent(content);
 	}, [content, setContent]);
   
-  const handleMouseDown = e => {
-	setMouseDown(true);
-	setInitialPosition({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleMouseMove = e => {
-	if (!mouseDown) return;
-
-	setPosition({
-	  x: position.x + (e.clientX - initialPosition.x),
-	  y: position.y + (e.clientY - initialPosition.y)
-	});
-	setInitialPosition({ x: e.clientX, y: e.clientY });
-  };
-
-  const handleMouseUp = () => {
-	setMouseDown(false);
-  };
   
   const handleTextChange = (event) => {
   setContent(event.target.value);
@@ -126,8 +121,8 @@ const AppWindow = ({}) => {
 	switch (type) {
 	  case 'TextEdit':
 		return <TextArea text={content} handleTextChange={handleTextChange} />;
-	  case 'type2':
-		return <TextArea content={content} />;
+	  case 'Image':
+		return <ImgArea content={content} />;
 	  case 'type3':
 		return <TextArea content={content} />;
 	}};
@@ -140,10 +135,11 @@ const AppWindow = ({}) => {
 return (
 	<>
 	  {!isClosed && (
+		<Draggable handle=".titleBar, .windowFooter">
 		<div
 		  style={{
-			width: isMinimized ? '50px' : size.width,
-			height: isMinimized ? '50px' : size.height,
+			width: isMinimized ? '64px' : size.width,
+			height: isMinimized ? '64px' : size.height,
 			left: position.x,
 			top: position.y,
 			backgroundColor: isActive ? 'black' : 'lightgray',
@@ -151,12 +147,14 @@ return (
 			border: '1px solid black'
 		  }}
 		>
-		  <div
+		  <div className="titleBar"
 			style={{
 			  width: '100%',
 			  height: '21px',
-			  backgroundColor: isActive ? 'black' : '#AAAAAA',
+			  backgroundColor: isActive ? '#AAAAAA' : '#000',
+			  backgroundColor: isMinimized ? 'black' : '#AAAAAA',
 			  color: isActive ? 'white' : 'black',
+			  color: isMinimized ? 'white' : 'black',
 			  cursor: 'default',
 			  display: 'flex',
 			  justifyContent: 'space-between',
@@ -165,8 +163,7 @@ return (
 			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
 			  zIndex: '9'
 			}}
-			onMouseDown={handleMouseDown}
-			onDoubleClick={() => !editingTitle && setIsMinimized(!isMinimized)}
+			onDoubleClick={() => setIsMinimized(!isMinimized)}
 		  >
 			{!isMinimized && (
 			  <div style={{ display: 'flex', alignItems: 'center', spacing: '0', margin: '0', padding: '0' }}>
@@ -177,7 +174,12 @@ return (
 			  {!editingTitle ? (
 				<div
 				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '7px' : '9px', textTransform: isMinimized ? 'uppercase' : 'none', fontFamily: isMinimized ? 'NeueBitBold' : ''}}
-				  onDoubleClick={() => setEditingTitle(true)}
+				  onDoubleClick={() => {
+					  if (!editingTitle) {
+						setIsMinimized(!isMinimized);
+						setEditingTitle(true);
+					  }
+					}}
 				>
 				  {title}
 				</div>
@@ -202,7 +204,7 @@ return (
 			  <>
 				{renderContent()}
 				
-				<FooterContainer>
+				<FooterContainer className="windowFooter">
 				  <WindowFooterSide />
 					<WindowFooterMid />
 				  <WindowFooterSide />
@@ -211,12 +213,10 @@ return (
 			)}
 		  </div>
 		</div>
+		</Draggable>
 	  )}
 	</>
   );
-
-
-
 
   };
   

@@ -11,22 +11,14 @@ const Dock = ({ addWindow }) => {
   const [textEditorCount, setTextEditorCount] = useState(0);
   const doubleClickRef = useRef(0);
   const handleTextEditClick = () => {
-	const newClick = doubleClickRef.current + 1;
-	doubleClickRef.current = newClick;
-	setTimeout(() => {
-	  if (doubleClickRef.current === newClick) {
-		doubleClickRef.current = 0;
-	  } else {
-		const newCount = textEditorCount + 1;
-		setTextEditorCount(newCount);
-		const newClassName = `app-window-${newCount}`;
-		addWindow(
-		  <Window title={"Mindware.txt"} x={50 * newCount} y={50 * newCount} className={newClassName} />
-		);
-		doubleClickRef.current = 0;
-	  }
-	}, 500);
+	const newCount = textEditorCount + 1;
+	setTextEditorCount(newCount);
+	const newClassName = `app-window-${newCount}`;
+	addWindow(
+	  <Window title={"Mindware.txt"} x={50 * newCount} y={50 * newCount} className={newClassName} />
+	);
   };
+
   
   const handleClick = () => {
 	window.open("https://www.twitter.com/ppuunnkkdotcom", "_blank");

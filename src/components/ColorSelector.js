@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Mars from "./bgimages/Punk-Mother-Mars-Tile.png"
 
 const bgc = {
   green: '#00FF46',
@@ -8,12 +9,13 @@ const bgc = {
   chartreuse: '#B5FF00',
   pink: '#FF00C4',
   darkback: '#192817',
-  grey: '#AAAAAA'
+  grey: '#AAAAAA',
+  mars: `url({Mars}) repeat`
 };
 
 const colors = Object.values(bgc);
 const images = [
-  "./bgimages/Punk-Mother-Mars-Tile.png",
+  {Mars},
   "./bgimages/Punk-Mother-Mars-Tile.png",
   "./bgimages/Punk-Mother-Mars-Tile.png",
   "./bgimages/Punk-Mother-Mars-Tile.png",

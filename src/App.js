@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import styled from 'styled-components';
 import { create } from "zustand";
 import Dock from './components/Dock';
-import Logo from './components/Logo';
 import Menu from './components/Menu';
 import Bottom from './components/Bottom';
-import CrapWindow from './components/AppWindow';
 import AppWindow from './components/AppWindow2';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
+import SVG from './components/SVG';
 import ColorSelector from './components/ColorSelector';
+import DrawCanvas from './components/DrawCanvas';
 import './styles.css';
 
 const DesktopContainer = styled.div`
@@ -40,7 +40,7 @@ const Desktop = ({ children }) => {
 };
 
 const useApp = create((set) => ({
-  windows: [<AppWindow title="Mindware.txt"  />],
+  windows: [<AppWindow title="Mindware.txt" />,<AppWindow title="ForYou.txt"  />],
   backgroundPosition: { x: 0, y: 0 },
   activeWindowIndex: 0,
   text: "",
@@ -97,6 +97,7 @@ const App = () => {
 
 return (
     <Desktop background={background}>
+    <DrawCanvas />
     <Menu />
           <Dock addWindow={addWindow} />
           {windows.map((window, index) => (
@@ -118,8 +119,10 @@ return (
               />
             </div>
           ))}
-          <Logo />
           <Recycle />
+          <SVG filename="Pink"/>
+          <SVG filename="Green"/>
+          <SVG />
           <Jpeg filename="monkey" />
           <Jpeg filename="something how far does this go" />
           <Bottom

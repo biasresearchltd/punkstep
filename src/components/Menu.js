@@ -65,11 +65,9 @@ const MenuWrapper = styled.div`
   width: 108px;
   background: ${props => props.background};
   overflow: hidden;
-  border: none;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #000;
-  border-bottom: 1px solid #000;
+  border: 1px solid black;
   z-index: 99999999;
   image-rendering: pixelated;
 `;
@@ -82,7 +80,8 @@ const MenuHead = styled.div`
   font-family: NeueBitBold;
   font-size: 9px;
   border-right: 1px solid #000;
-  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  box-size: border-box;
+  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
   user-drag: none;
   user-select: none;
   padding: 4px;
@@ -96,7 +95,8 @@ const MenuItem = styled.div`
   font-family: NeueBit;
   font-size: 9px;
   border-right: 1px solid #000;
-  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  box-size: border-box;
+  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
   user-drag: none;
   user-select: none;
   padding: 4px;

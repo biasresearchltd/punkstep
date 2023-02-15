@@ -39,6 +39,7 @@ const Logo = ({ onClick }) => (
 <Container onClick={onClick}>
 <Image src={Punk} 
      style={{
+       zIndex: '0',
        position: "absolute",
        top: "50%",
        left: "50%",

@@ -21,6 +21,7 @@ const Container = styled.div`
   }
   &:active {
     cursor: pointer;
+    background-color: white;
     box-shadow: inset 0 0 10px #333;
   }
 `;
@@ -38,6 +39,7 @@ const Image = styled.img`
   }
   &:active {
     cursor: pointer;
+    background-color: white;
     box-shadow: inset 0 0 10px #333;
 `;
 
