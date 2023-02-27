@@ -18,6 +18,30 @@ body {
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'PunkClockType';
+  src: url('../fonts/PunkClockType-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PunkDayType';
+  src: url('../fonts/PunkDayType-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PunkMonthType';
+  src: url('../fonts/PunkMonthType-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TimesNewDay';
+  src: url('../fonts/TimesNewDay-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
 .root {
   user-drag: none;
   user-select: none;

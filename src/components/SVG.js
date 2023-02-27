@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import IconImage from "./PunkHead.svg";
+import IconImage from "./GreenPunkHead.svg";
 import styled from 'styled-components';
 import Draggable from "react-draggable";
 

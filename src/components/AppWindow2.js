@@ -150,14 +150,14 @@ return (
 		  <div className="titleBar"
 			style={{
 			  width: '100%',
-			  height: '21px',
+			  height: isMinimized ? '11px' : '21px',
 			  backgroundColor: isActive ? '#AAAAAA' : '#000',
 			  backgroundColor: isMinimized ? 'black' : '#AAAAAA',
 			  color: isActive ? 'white' : 'black',
 			  color: isMinimized ? 'white' : 'black',
 			  cursor: 'default',
 			  display: 'flex',
-			  justifyContent: 'space-between',
+			  justifyContent: isMinimized ? 'center' : 'space-between',
 			  fontFamily: 'NeueBitBold',
 			  boxSize: 'border-box',
 			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
@@ -173,7 +173,7 @@ return (
 			<div style={{ display: 'flex', alignItems: 'center' }}>
 			  {!editingTitle ? (
 				<div
-				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '7px' : '9px', textTransform: isMinimized ? 'uppercase' : 'none', fontFamily: isMinimized ? 'NeueBitBold' : ''}}
+				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '6px' : '9px', textTransform: isMinimized ? 'uppercase' : 'none', fontFamily: isMinimized ? 'NeueBitBold' : '', transform: isMinimized ? 'scale(1, 1.1)' : ''}}
 				  onDoubleClick={() => {
 					  if (!editingTitle) {
 						setIsMinimized(!isMinimized);
