@@ -31,35 +31,43 @@ const TextContainer = styled.div`
 `;
 
 const Time = styled.p`
-  font-size: 12px;
+  font-size: 9px;
   color: #64DD17;
-  font-style: italic;
-  font-family: sans-serif;
+  font-family: "PunkClockType";
   text-shadow: 0 0 8px #00FF46, 0 0 4px #00FF46, 0 0 1px #00FF46;
   margin: 0;
   padding: 0;
   user-select: none;
+  font-smooth: never;
+  span {
+    opacity: 1;
+    transition: opacity 1s linear;
+    &.hidden {
+      opacity: 0;
+    }
+  }
 `;
+
 
 const WeekDay = styled.p`
   text-align: center;
-  font-size: 6px;
-  font-family: sans-serif;
+  font-size: 9px;
+  font-family: "PunkDayType";
   font-weight: none;
+  font-smooth: never;
   text-transform: uppercase;
-  transform: scaleX(1.666);
-  margin-top: 5px;
-  margin-bottom: 1px;
+  margin-top: 3px;
+  margin-bottom: 0;
   padding: 0;
   user-select: none;
 `;
 
 const Day = styled.p`
   text-align: center;
-  font-size: 14.666px;
-  font-family: TimesNewRoman;
-  transform: scale(1.42, 1.666);
-  margin: 0;
+  font-size: 10px;
+  font-family: "TimesNewDay";
+  font-smooth: never;
+  margin-top: -5px;
   padding: 0;
   user-select: none;
   
@@ -71,12 +79,11 @@ const Day = styled.p`
 
 const Month = styled.p`
   text-align: center;
-  font-size: 6px;
-  font-family: sans-serif;
-  font-style: italic;
-  transform: scale(1.666, 1.1);
+  font-size: 9px;
+  font-family: "PunkMonthType";
+  font-smooth: never;
   text-transform: uppercase;
-  margin-top: 0.5px;
+  margin-top: -12px;
   user-select: none;
   padding: 0;
   
@@ -92,14 +99,18 @@ const Month = styled.p`
 const CalIcon = ({ onClick }) => {
   const [time, setTime] = useState(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
   const [date, setDate] = useState(new Date());
-
+  const [colonOpacity, setColonOpacity] = useState(1);
+  
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setTime(new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" }));
+      const newTime = new Date().toLocaleTimeString("en-US", { hour12: false, hour: "2-digit", minute: "2-digit" });
+      setTime(newTime);
+      setColonOpacity((prevOpacity) => (prevOpacity ? 0 : 1));
       setDate(new Date());
     }, 1000);
     return () => clearInterval(intervalId);
   }, []);
+
 
   const weekDay = date.toLocaleString("en-US", { weekday: "short" });
   const day = date.getDate();
@@ -109,7 +120,12 @@ const CalIcon = ({ onClick }) => {
     <Container onClick={onClick}>
       <Icon src={IconImage} />
       <TextContainer>
-        <Time>{time}</Time>
+        <Time>
+          {time.slice(0, 2)}
+          <span className={colonOpacity ? "" : "hidden"}>:</span>
+          {time.slice(3)}
+        </Time>
+
         <WeekDay>{weekDay}</WeekDay>
         <Day>{day}</Day>
         <Month>{month}</Month>

@@ -1,8 +1,6 @@
 import React from "react";
 import Minimize from "../icons/Minimize.png";
 import Close from "../icons/Close.png";
-import Up from "../icons/Close.png"
-import Down from "../icons/Close.png"
 import styled from "styled-components";
 
 const IconImg = styled.img`
@@ -19,6 +17,7 @@ const IconContainer = styled.div`
 `;
 
 const StyledWindowButton = styled.div`
+  left: 0;
   width: 15px;
   height: 15px;
   background-color: #AAA;
@@ -47,10 +46,6 @@ const WindowButton = ({ onClick, icon, iconSize = "10px" }) => (
       {icon === "minimize" ? (
         <IconImg src={Minimize} alt="Minimize icon" />
       ) : icon === "close" ? (
-        <IconImg src={Close} alt="Close icon" />
-      ) : icon === "up" ? (
-      <IconImg src={Close} alt="Close icon" />
-      ) : icon === "down" ? (
         <IconImg src={Close} alt="Close icon" />
       ) : null }
     </IconContainer>

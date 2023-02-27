@@ -44,7 +44,7 @@ const TitleBar = ({ title, handleMinimize, handleClose }) => {
 
   return (
 	  <Container className={isActive ? "windowtitle active" : "windowtitle "} onClick={handleClick}>
-		<WindowButton icon="minimize" onClick={handleMinimize} />
+		<WindowButton icon="minimize" onClick={handleMinimize} style={{left: '-1px'}}/>
 		<Title isActive={isActive}>{title}</Title>
 		<WindowButton icon="close" onClick={handleClose} />
 	  </Container>
