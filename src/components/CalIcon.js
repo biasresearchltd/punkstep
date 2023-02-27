@@ -72,8 +72,7 @@ const Day = styled.p`
   user-select: none;
   
   @media only screen and (max-width: 500px) {
-    margin-top: -1px;
-    transform: scale(1.666, 1.42);
+    margin-top: -5px;
   }
 `;
 
@@ -91,8 +90,7 @@ const Month = styled.p`
     margin-top: 0px;
   }
   @media only screen and (max-width: 500px) {
-    margin-top: -3px;
-    transform: scale(1.666, 1);
+    margin-top: -12px;
   }
 `;
 
