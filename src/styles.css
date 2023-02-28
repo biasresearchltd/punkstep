@@ -7,18 +7,6 @@ body {
 }
 
 @font-face {
-  font-family: 'NeueBit';
-  src: url('../fonts/ppneuebit-regular-webfont.woff2') format('woff');
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'NeueBitBold';
-  src: url('../fonts/ppneuebit-bold-webfont.woff2') format('woff');
-  font-display: swap;
-}
-
-@font-face {
   font-family: 'PunkClockType';
   src: url('../fonts/PunkClockType-Regular.woff2') format('woff');
   font-display: swap;
@@ -39,6 +27,24 @@ body {
 @font-face {
   font-family: 'TimesNewDay';
   src: url('../fonts/TimesNewDay-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PunkSystemReg';
+  src: url('../fonts/PunkSystem-Regular.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PunkSystemBold';
+  src: url('../fonts/PunkSystem-Bold.woff2') format('woff');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PunkSystemComp';
+  src: url('../fonts/PunkSystem-Compact.woff2') format('woff');
   font-display: swap;
 }
 

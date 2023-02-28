@@ -36,7 +36,7 @@ const Image = styled.img`
 const Text = styled.p`
   text-align: center;
   font-size: 9px;
-  font-family: 'NeueBitBold';
+  font-family: 'PunkSystemComp';
   margin-top: 0px;
   background-color:  ${props => props.isInverted ? '#00FF00' : '#AAA'};
   padding: 2px;
