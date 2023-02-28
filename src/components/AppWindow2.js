@@ -158,7 +158,7 @@ return (
 			  cursor: 'default',
 			  display: 'flex',
 			  justifyContent: isMinimized ? 'center' : 'space-between',
-			  fontFamily: 'NeueBitBold',
+			  fontFamily: 'PunkSystemBold',
 			  boxSize: 'border-box',
 			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
 			  zIndex: '9'
@@ -173,7 +173,7 @@ return (
 			<div style={{ display: 'flex', alignItems: 'center' }}>
 			  {!editingTitle ? (
 				<div
-				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '6px' : '9px', textTransform: isMinimized ? 'uppercase' : 'none', fontFamily: isMinimized ? 'NeueBitBold' : '', transform: isMinimized ? 'scale(1, 1.1)' : ''}}
+				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '8px' : '10px', textTransform: isMinimized ? 'none' : 'none', fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', marginTop: isMinimized ? '1px' : '3px', fontWeight: 'bold'}}
 				  onDoubleClick={() => {
 					  if (!editingTitle) {
 						setIsMinimized(!isMinimized);

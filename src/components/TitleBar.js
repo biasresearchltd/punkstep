@@ -8,8 +8,6 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
-  font-size: 9px;
-  font-family: NeueBitBold;
   background: #AAAAAA;
   image-rendering: pixelated;
   user-drag: none;
@@ -25,9 +23,9 @@ const Container = styled.div`
 const Title = styled.div`
   cursor: default;
   color: ${(props) => (props.isActive ? "white" : "black")};
-  font-size: 9px;
+  font-size: 11px;
   font-weight: bold;
-  font-family: "NeueBitBold";
+  font-family: "PunkSystem";
   display: flex;
   align-items: center;
 `;

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import Draggable from 'react-draggable';
 import Arrow from "../icons/PunkStep-RArrow.png";
 
 const menuItems = [
@@ -61,12 +62,15 @@ const MenuWrapper = styled.div`
   position: absolute;
   top: 1px;
   left: 3px;
-  height: 252px;
+  height: auto;
   width: 108px;
   background: ${props => props.background};
+  font-family: "PunkSystemReg";
+  font-smoothing: never;
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  flex-grow: 1;
   border: 1px solid black;
   z-index: 99999999;
   image-rendering: pixelated;
@@ -76,9 +80,7 @@ const MenuHead = styled.div`
   background-color: #000;
   color: #FFF;
   height: 14px;
-  margin-bottom: 1px;
-  font-family: NeueBitBold;
-  font-size: 9px;
+  font-size: 10px;
   border-right: 1px solid #000;
   box-size: border-box;
   box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
@@ -88,15 +90,24 @@ const MenuHead = styled.div`
   z-index: 99999999;
 `;
 
+const MenuTitle = styled.span`
+  position: absolute;
+  font-family: "PunkSystemBold";
+  margin-top: 2px;
+`;
+
+const ItemTitle = styled.span`
+  display: inline-block;
+  margin-top: 2px;
+`;
+
 const MenuItem = styled.div`
   background-color: #AAAAAA;
-  height: 14px;
-  margin-bottom: 1px;
-  font-family: NeueBit;
-  font-size: 9px;
+  height: 12px;
+  font-size: 10px;
   border-right: 1px solid #000;
   box-size: border-box;
-  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1.5px -1.5px #565656, -1px -1px #000000;
   user-drag: none;
   user-select: none;
   padding: 4px;
@@ -111,6 +122,7 @@ const RArrow = styled.img`
   width: 7px;
   user-drag: none;
   user-select: none;
+  padding-right: 2px;
 `;
 
 const Menu = () => {
@@ -131,15 +143,20 @@ const Menu = () => {
   const menuTitles = menuLayout[0].items.map(item => item.title);
 
   return (
+    <Draggable handle=".menuHead" bounds="parent">
 	<MenuWrapper>
 	  <div>
-		<MenuHead>{header}</MenuHead>
+		<MenuHead className="menuHead">
+    <MenuTitle>
+    {header}
+    </MenuTitle>
+    </MenuHead>
 		{menuTitles.map((title, index) => (
-		  <MenuItem key={index}>{title}<RArrow src={Arrow} /></MenuItem>
+		  <MenuItem key={index}><ItemTitle>{title}</ItemTitle><RArrow src={Arrow} /></MenuItem>
 		))}
 	  </div>
-	  
 	</MenuWrapper>
+	  </Draggable>
   );
 };
 
