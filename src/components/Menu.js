@@ -65,7 +65,6 @@ const MenuWrapper = styled.div`
   height: auto;
   width: 108px;
   background: ${props => props.background};
-  font-family: "PunkSystemReg";
   font-smoothing: never;
   overflow: hidden;
   display: flex;
@@ -105,6 +104,7 @@ const MenuItem = styled.div`
   background-color: #AAAAAA;
   height: 12px;
   font-size: 10px;
+  font-family: "PunkSystemReg";
   border-right: 1px solid #000;
   box-size: border-box;
   box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1.5px -1.5px #565656, -1px -1px #000000;

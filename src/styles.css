@@ -79,3 +79,12 @@ body {
   -webkit-box-shadow: none;
   background-color: none;
 }
+
+input::before {
+  content: "";
+  position: absolute;
+  width: 3px;
+  height: 20px;
+  background-color: black;
+}
+

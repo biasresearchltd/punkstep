@@ -173,7 +173,7 @@ return (
 			<div style={{ display: 'flex', alignItems: 'center' }}>
 			  {!editingTitle ? (
 				<div
-				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '8px' : '10px', textTransform: isMinimized ? 'none' : 'none', fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', marginTop: isMinimized ? '1px' : '3px', fontWeight: 'bold'}}
+				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '8px' : '10px', textTransform: isMinimized ? 'none' : 'none', fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', marginTop: isMinimized ? '1px' : '3px'}}
 				  onDoubleClick={() => {
 					  if (!editingTitle) {
 						setIsMinimized(!isMinimized);

@@ -56,7 +56,7 @@ const WeekDay = styled.p`
   font-weight: none;
   font-smooth: never;
   text-transform: uppercase;
-  margin-top: -6.5px;
+  margin-top: -6px;
   margin-bottom: 0;
   padding: 0;
   user-select: none;
@@ -67,7 +67,7 @@ const Day = styled.p`
   font-size: 10px;
   font-family: "TimesNewDay";
   font-smooth: never;
-  margin-top: -5.25px;
+  margin-top: -6px;
   padding: 0;
   user-select: none;
   
