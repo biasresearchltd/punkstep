@@ -83,10 +83,6 @@ const Day = styled.p`
   user-select: none;
   top: 33px;
   text-align: center;
-  
-  @media only screen and (max-width: 500px) {
-    margin-top: 0;
-  }
 `;
 
 const Month = styled.p`
@@ -100,13 +96,6 @@ const Month = styled.p`
   top: 47px;
   user-select: none;
   padding: 0;
-  
-  @media only screen and (max-width: 767px) {
-    margin-top: 0px;
-  }
-  @media only screen and (max-width: 500px) {
-    margin-top: -13px;
-  }
 `;
 
 const CalIcon = ({ onClick }) => {
