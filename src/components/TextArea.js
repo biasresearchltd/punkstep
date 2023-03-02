@@ -163,7 +163,7 @@ const TextArea = ({ text, handleTextChange, isMinimized }) => {
 		value={text}
 		onChange={handleTextChange}
 		isMinimized={isMinimized}
-		style={{ fontFamily:'PunkSystemReg', fontSize: '10px', outline: 'none', borderRadius: '0', zIndex: '0', resize: 'none', borderBottom: '1.2px solid #AAAAAA'}}
+		style={{ fontFamily:'PunkSystemReg', fontSize: '10px', outline: 'none', borderRadius: '0', zIndex: '0', resize: 'none', borderBottom: '1.2px solid #AAAAAA', caretColor: 'blue'}}
 	  />
 	</Content>
   );

@@ -122,7 +122,6 @@ return (
           <Recycle />
           <SVG filename="Pink"/>
           <SVG filename="Green"/>
-          <SVG />
           <Jpeg filename="monkey" />
           <Jpeg filename="something how far does this go" />
           <Bottom
