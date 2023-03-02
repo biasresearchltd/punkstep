@@ -7,11 +7,18 @@ const Content = styled.div`
   z-index: 0;
   position: relative;
   textarea {
-	width: calc(100% - 26px);
-	height: 297px;
+	width: calc(100% - 20px);
+	height: 301px;
 	position: absolute;
 	left: 20px;
   }
+  
+  @media only screen and (max-width: 375px) {
+	  textarea {
+		width: calc(100% - 30px);
+		left: 15px;
+	  }
+	}
 `;
 
 const ScrollbarContainer = styled.div`
@@ -59,7 +66,7 @@ const ScrollbarContainer = styled.div`
   .buttonContainer {
 	position: absolute;
 	left: 1px;
-	bottom: 1.2px;
+	bottom: 2.5px;
 	width: 100%;
 	spacing: 0;
 	padding: 0;

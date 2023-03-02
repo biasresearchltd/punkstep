@@ -109,7 +109,7 @@ const handleMouseMove = (event) => {
   const { left, top } = position;
 
   return (
-    <Draggable>
+    <Draggable bounds="parent">
       <Container
         isInverted={isInverted}
         left={left}

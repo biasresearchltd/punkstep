@@ -78,7 +78,7 @@ const MenuWrapper = styled.div`
 const MenuHead = styled.div`
   background-color: #000;
   color: #FFF;
-  height: 14px;
+  height: 21px;
   font-size: 10px;
   border-right: 1px solid #000;
   box-size: border-box;
@@ -102,7 +102,7 @@ const ItemTitle = styled.span`
 
 const MenuItem = styled.div`
   background-color: #AAAAAA;
-  height: 12px;
+  height: 21px;
   font-size: 10px;
   font-family: "PunkSystemReg";
   border-right: 1px solid #000;
