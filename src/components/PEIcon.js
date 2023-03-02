@@ -10,16 +10,18 @@ const Container = styled.div`
   margin: 0;
   padding: 0;
   image-rendering: pixelated;
-  transition: all 1 ease-in-out;
+  transition: transform 1s ease-in-out;
   &:hover {
     position: relative;
+    box-shadow: inset 24px 24px #FCFCFE, inset -24px -24px #565656, 2px 2px #000000;
     cursor: pointer;
-    box-shadow: inset 11px 11px #FCFCFE, inset -11px -11px #565656, 2px 2px #000000;
-    right: 4px;
+    right: 2px;
     transform: scale(1.03);
+    animation: all 0.33s ease-in-out;
   }
   &:active {
     cursor: pointer;
+    background-color: white;
     box-shadow: inset 0 0 10px #333;
   }
 `;

@@ -67,7 +67,7 @@ const Icon = ( {filename, onClick} ) => {
   const { left, top } = position;
 
   return (
-    <Draggable>
+    <Draggable bounds="parent">
       <Container isInverted={isInverted} left={left} top={top} onClick={handleClick}>
         <Image src={IconImage} alt="icon" />
         <Text isInverted={isInverted}>{filename}</Text>

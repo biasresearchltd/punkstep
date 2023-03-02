@@ -22,20 +22,27 @@ const Icon = styled.img`
 
 const TextContainer = styled.div`
   position: absolute;
-  top: 5px;
-  left: 46%;
-  transform: translate(-50%, 0);
-  display: inline-block;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 0;
+  top: 0;
+  right: 2px;
 `;
 
 const Time = styled.p`
-  font-size: 9px;
+  position: absolute;
+  line-height: 1;
+  font-size: 10px;
   color: #64DD17;
   font-family: "PunkClockType";
   text-shadow: 0 0 8px #00FF46, 0 0 4px #00FF46;
-  margin-top: 0px;
+  top: 6px;
+  text-align: center;
   padding: 0;
   user-select: none;
   font-smooth: never;
@@ -50,39 +57,47 @@ const Time = styled.p`
 
 
 const WeekDay = styled.p`
+  position: absolute;
   text-align: center;
+  line-height: 1;
   font-size: 10px;
   font-family: "PunkDayType";
   font-weight: none;
   font-smooth: never;
   text-transform: uppercase;
-  margin-top: -6px;
-  margin-bottom: 0;
-  padding: 0;
+  top: 22px;
+  text-align: center;
+  margin: 0;
   user-select: none;
 `;
 
 const Day = styled.p`
+  position: absolute;
+  line-height: 1;
   text-align: center;
   font-size: 10px;
   font-family: "TimesNewDay";
   font-smooth: never;
-  margin-top: -6px;
+  margin: 0;
   padding: 0;
   user-select: none;
+  top: 33px;
+  text-align: center;
   
   @media only screen and (max-width: 500px) {
-    margin-top: -6px;
+    margin-top: 0;
   }
 `;
 
 const Month = styled.p`
+  position:absolute;
+  line-height: 1;
   text-align: center;
   font-size: 9px;
   font-family: "PunkMonthType";
   font-smooth: never;
   text-transform: uppercase;
-  margin-top: -12.5px;
+  top: 47px;
   user-select: none;
   padding: 0;
   
