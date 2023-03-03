@@ -92,7 +92,6 @@ const MenuHead = styled.div`
 const MenuTitle = styled.span`
   position: absolute;
   font-family: "PunkSystemBold";
-  margin-top: 2px;
 `;
 
 const ItemTitle = styled.span`

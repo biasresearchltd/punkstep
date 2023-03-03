@@ -41,7 +41,7 @@ const Time = styled.p`
   color: #64DD17;
   font-family: "PunkClockType";
   text-shadow: 0 0 8px #00FF46, 0 0 4px #00FF46;
-  top: 6px;
+  top: 6.5px;
   text-align: center;
   padding: 0;
   user-select: none;
@@ -86,7 +86,7 @@ const Day = styled.p`
 `;
 
 const Month = styled.p`
-  position:absolute;
+  position: absolute;
   line-height: 1;
   text-align: center;
   font-size: 9px;
