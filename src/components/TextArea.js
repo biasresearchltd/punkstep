@@ -11,19 +11,13 @@ const Content = styled.div`
 	height: 301px;
 	position: absolute;
 	left: 20px;
+	padding: 2px;
   }
-  
-  @media only screen and (max-width: 375px) {
-	  textarea {
-		width: calc(100% - 30px);
-		left: 15px;
-	  }
-	}
 `;
 
 const ScrollbarContainer = styled.div`
   z-index: 1;
-  width: 21px;
+  width: 21.5px;
   height: 302px;
   background-color: #AAA;
   position: absolute;
@@ -39,9 +33,9 @@ const ScrollbarContainer = styled.div`
 
   .scrollContainer {
 	position: absolute;
-	left: 2px;
+	left: 2.5px;
 	top: 2px;
-	height: 261px;
+	height: 260px;
 	width: 16px;
 	background-size: 2px 2px;
 	background-position: 0 0, 1px 1px;
