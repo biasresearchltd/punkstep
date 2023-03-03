@@ -161,7 +161,7 @@ return (
 			  fontFamily: 'PunkSystemBold',
 			  boxSize: 'border-box',
 			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
-			  zIndex: '9'
+			  zIndex: '90'
 			}}
 			onDoubleClick={() => setIsMinimized(!isMinimized)}
 		  >
