@@ -10,6 +10,14 @@ const bgc = {
   pink: '#FF00C4',
   darkback: '#192817',
   grey: '#AAAAAA',
+  greenfade: '#8AFF9B',
+  bluefade: '#70A2FF',
+  orangefade: '#FFA266',
+  yellowfade: '#FFE766',
+  chartreusefade: '#C9FF91',
+  pinkfade: '#FF6EB4',
+  darkbackfade: '#555E4E',
+  greyfade: '#999999',
   mars: `url({Mars}) repeat`
 };
 

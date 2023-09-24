@@ -11,7 +11,9 @@ import Window from './AppWindow';
 const Dock = ({ addWindow }) => {
   const [textEditorCount, setTextEditorCount] = useState(0);
   const doubleClickRef = useRef(0);
-  const handleTextEditClick = () => {
+  const handleTextEditClick = (event) => {
+  	event.stopPropagation();
+	console.log("handleTextEditClick called");
 	const newCount = textEditorCount + 1;
 	setTextEditorCount(newCount);
 	const newClassName = `app-window-${newCount}`;
@@ -20,7 +22,6 @@ const Dock = ({ addWindow }) => {
 	);
   };
 
-  
   const handleClick = () => {
 	window.open("https://www.twitter.com/ppuunnkkdotcom", "_blank");
   };
@@ -40,7 +41,7 @@ const Dock = ({ addWindow }) => {
 		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", alignSelf: 'flex-start' }}>
 		  <PunkIcon />
 		  <CalIcon />
-		  <TextEditIcon onClick={handleTextEditClick} />
+		  <TextEditIcon onClick={(event) => handleTextEditClick(event)} />
 		  <OKSHIcon />
 		  <RoboIcon onClick={latestPoster} />
 		  <PEIcon onClick={punkEnergy} />

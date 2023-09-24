@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import create from 'zustand';
+import { create } from 'zustand';
 import Draggable from 'react-draggable';
 import WindowButton from "./WindowButton";
 import TextArea from "./TextArea";
@@ -163,8 +163,7 @@ return (
 			  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
 			  zIndex: '90'
 			}}
-			onDoubleClick={() => setIsMinimized(!isMinimized)}
-		  >
+			>
 			{!isMinimized && (
 			  <div style={{ display: 'flex', alignItems: 'center', spacing: '0', margin: '0', padding: '0' }}>
 				<WindowButton icon="minimize" onClick={() => setIsMinimized(true)} />
@@ -176,7 +175,6 @@ return (
 				  style={{ marginLeft: 'auto', fontSize: isMinimized ? '8px' : '10px', textTransform: isMinimized ? 'none' : 'none', fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', marginTop: isMinimized ? '1px' : '3px'}}
 				  onDoubleClick={() => {
 					  if (!editingTitle) {
-						setIsMinimized(!isMinimized);
 						setEditingTitle(true);
 					  }
 					}}

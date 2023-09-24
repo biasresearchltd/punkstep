@@ -18,7 +18,7 @@ const menuItems = [
   ]},
 ]
 const menuItems2 = [
-  { header: 'Header 2', items: [
+  { header: 'TextEdit', items: [
 	{ id: 10, title: 'Item 10', action: () => console.log('Item 10') },
 	{ id: 11, title: 'Item 11', action: () => console.log('Item 11') },
 	{ id: 12, title: 'Item 12', action: () => console.log('Item 12') },
@@ -33,7 +33,7 @@ const menuItems2 = [
   ]},
 ]
 const menuItems3 = [
-  { header: 'Header 3', items: [
+  { header: 'Preview', items: [
 	{ id: 21, title: 'Item 21', action: () => console.log('Item 21') },
 	{ id: 22, title: 'Item 22', action: () => console.log('Item 22') },
 	{ id: 23, title: 'Item 23', action: () => console.log('Item 23') },
@@ -73,6 +73,7 @@ const MenuWrapper = styled.div`
   border: 1px solid black;
   z-index: 99999999;
   image-rendering: pixelated;
+  cursor: default;
 `;
 
 const MenuHead = styled.div`
@@ -82,15 +83,12 @@ const MenuHead = styled.div`
   font-size: 10px;
   border-right: 1px solid #000;
   box-size: border-box;
-  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
+  box-shadow: inset 1.2px 1.2px #FCFCFE, inset -1px -1px #565656;
   user-drag: none;
   user-select: none;
-  padding: 4px;
+  padding-left: 4px;
+  padding-top: 5.5px;
   z-index: 99999999;
-`;
-
-const MenuTitle = styled.span`
-  position: absolute;
   font-family: "PunkSystemBold";
 `;
 
@@ -146,9 +144,7 @@ const Menu = () => {
 	<MenuWrapper>
 	  <div>
 		<MenuHead className="menuHead">
-    <MenuTitle>
     {header}
-    </MenuTitle>
     </MenuHead>
 		{menuTitles.map((title, index) => (
 		  <MenuItem key={index}><ItemTitle>{title}</ItemTitle><RArrow src={Arrow} /></MenuItem>

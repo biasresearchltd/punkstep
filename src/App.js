@@ -4,7 +4,7 @@ import { create } from "zustand";
 import Dock from './components/Dock';
 import Menu from './components/Menu';
 import Bottom from './components/Bottom';
-import AppWindow from './components/AppWindow2';
+import AppWindow from './components/AppWindow3';
 import Recycle from './components/Recycle';
 import Jpeg from './components/JPG';
 import SVG from './components/SVG';
@@ -21,10 +21,7 @@ const DesktopContainer = styled.div`
   overflow: hidden;
   border: none;
   touch-action: none;
-  display: flex;
-  justify-content: center;
-  align-items: center;
- 
+  display: flex; 
 `;
 
 const Desktop = ({ children }) => {
@@ -40,7 +37,7 @@ const Desktop = ({ children }) => {
 };
 
 const useApp = create((set) => ({
-  windows: [<AppWindow title="Mindware.txt" />,<AppWindow title="ForYou.txt"  />],
+  windows: [<AppWindow title="Mindware.txt" />],
   backgroundPosition: { x: 0, y: 0 },
   activeWindowIndex: 0,
   text: "",
@@ -96,41 +93,40 @@ const App = () => {
   const { background, windows, addWindow, activeWindowIndex, handleWindowClick, minimizedWindows, minimizeWindow, restoreWindow, windowsClassName } = useApp();
 
 return (
-    <Desktop background={background}>
-    <DrawCanvas />
-    <Menu />
-          <Dock addWindow={addWindow} />
-          {windows.map((window, index) => (
-            <div
-              key={index}
-              style={{
-                position: "relative",
-                zIndex: index === activeWindowIndex ? 10 : 0,
-              }}
-            >
-              <AppWindow
-                className={`app-window-${index}`}
-                type="TextEdit"
-                content="FUCKER"
-                title={window.props.title}
-                isActive={index === activeWindowIndex}
-                onClick={() => handleWindowClick(index)}
-                onMinimize={() => minimizeWindow(index)}
-              />
-            </div>
-          ))}
-          <Recycle />
-          <SVG filename="Pink"/>
-          <SVG filename="Green"/>
-          <Jpeg filename="monkey" />
-          <Jpeg filename="something how far does this go" />
-          <Bottom
-            minimizedWindows={minimizedWindows}
-            restoreWindow={restoreWindow}
-          />
-    </Desktop>
-
+      <Desktop background={background}>
+      <DrawCanvas />
+      <Menu />
+            <Dock addWindow={addWindow} />
+            {windows.map((window, index) => (
+              <div
+                key={index}
+                style={{
+                  position: "relative",
+                  zIndex: index === activeWindowIndex ? 10 : 0,
+                }}
+              >
+                <AppWindow
+                  initialTitle={window.props.title}
+                  initialType="TextEdit"
+                  initialContent={window.props.content}
+                  isActive={index === activeWindowIndex}
+                  onClick={() => handleWindowClick(index)}
+                  onMinimize={() => minimizeWindow(index)}
+                />
+              </div>
+            ))}
+            <Recycle />
+            <SVG filename="Pink"/>
+            <SVG filename="Green"/>
+            <Jpeg filename="monkey" />
+            <Jpeg filename="something how far does this go" />
+            <Bottom
+              minimizedWindows={minimizedWindows}
+              restoreWindow={restoreWindow}
+            />
+      </Desktop>
   );
+
 
  };
  
