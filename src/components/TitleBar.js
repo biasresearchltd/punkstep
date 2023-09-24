@@ -1,52 +1,91 @@
-import React, { useState } from "react";
+import React from 'react';
 import WindowButton from "./WindowButton";
-import styled from "styled-components";
+import PropTypes from 'prop-types';
 
-const Container = styled.div`
-  height: 21px;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000;
-  background: #AAAAAA;
-  image-rendering: pixelated;
-  user-drag: none;
-  user-select: none;
-  box-size: border-box;
+const TitleBar = ({
+  isMinimized,
+  title,
+  onMinimize,
+  onClose,
+  onTitleDoubleClick,
+  isActive,
+  editingTitle,
+  setTitle,
+  setEditingTitle
+}) => (
+  <div 
+	className="titleBar"
+	style={{
+	  width: '100%',
+	  height: isMinimized ? '11px' : '21px',
+	  backgroundColor: isMinimized ? 'black' : (isActive ? '#AAAAAA' : '#000'),
+	  color: isMinimized ? 'white' : (isActive ? 'white' : 'black'),
+	  cursor: 'default',
+	  display: 'flex',
+	  justifyContent: isMinimized ? 'center' : 'space-between',
+	  fontFamily: 'PunkSystemBold',
+	  boxSizing: 'border-box',
+	  boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
+	  zIndex: '90'
+	}}
+  >
+	{!isMinimized && (
+	  <div style={{ display: 'flex', alignItems: 'center', spacing: '0', margin: '0', padding: '0' }}>
+		<WindowButton icon="minimize" onClick={onMinimize} />
+	  </div>
+	)}
+	<div style={{ display: 'flex', alignItems: 'center' }}>
+	  {!editingTitle ? (
+		<div
+		  style={{
+			marginLeft: 'auto', 
+			fontSize: isMinimized ? '8px' : '10px', 
+			textTransform: 'none', 
+			fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', 
+			marginTop: isMinimized ? '1px' : '3px',
+			color: isActive ? 'black' : 'white'
+		  }}
+		  onDoubleClick={onTitleDoubleClick}
+		>
+		  {title}
+		</div>
+	  ) : (
+		<input
+		  type="text"
+		  value={title}
+		  onChange={e => setTitle(e.target.value)}
+		  onBlur={() => setEditingTitle(false)}
+		  style={{
+			fontFamily: 'PunkSystemBold',
+			fontSize: '10px', // same as the div displaying the title
+			textAlign: 'center',
+			backgroundColor: "#CCCCCC",
+			outline: '2px solid #222222',
+			padding: "2px" // remove default border
+		  }}
+		  autoFocus
+		/>
 
-  &.active {
-	background: #000;
-	color: #FFF;
-  }
-`;
+	  )}
+	</div>
+	{!isMinimized && (
+	  <div style={{ display: 'flex', alignItems: 'center' }}>
+		<WindowButton icon="close" onClick={onClose} />
+	  </div>
+	)}
+  </div>
+);
 
-const Title = styled.div`
-  cursor: default;
-  color: ${(props) => (props.isActive ? "white" : "black")};
-  font-size: 11px;
-  font-weight: bold;
-  font-family: "PunkSystem";
-  display: flex;
-  align-items: center;
-`;
-
-
-const TitleBar = ({ title, handleMinimize, handleClose }) => {
-  const [isActive, setIsActive] = useState(false);
-  
-  const handleTitlebarClick = () => setIsActive(true);
-  
-  const handleClick = () => {
-	setIsActive(true);
-  };
-
-  return (
-	  <Container className={isActive ? "windowtitle active" : "windowtitle "} onClick={handleClick}>
-		<WindowButton icon="minimize" onClick={handleMinimize} style={{left: '-1px'}}/>
-		<Title isActive={isActive}>{title}</Title>
-		<WindowButton icon="close" onClick={handleClose} />
-	  </Container>
-	);
-  };
+TitleBar.propTypes = {
+  isMinimized: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  onMinimize: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onTitleDoubleClick: PropTypes.func.isRequired,
+  isActive: PropTypes.bool.isRequired,
+  editingTitle: PropTypes.bool.isRequired,
+  setTitle: PropTypes.func.isRequired,
+  setEditingTitle: PropTypes.func.isRequired,
+};
 
 export default TitleBar;

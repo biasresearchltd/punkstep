@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Draggable from "react-draggable";
 import TextEditIcon from "./TextEditIcon";
-import TitleBar from "./TitleBar";
+import TitleBar from "./TitleBar-Old";
 import TextArea from "./TextArea";
 
 const AppWindow = ({ title, isActive, onClick }) => {

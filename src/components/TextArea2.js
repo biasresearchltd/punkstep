@@ -17,6 +17,10 @@ const TextArea = () => {
 	  style={{ backgroundColor: selectedColor }}
 	  onFocus={handleFocus}
 	  onBlur={handleBlur}
+	  autocorrect="off" 
+	  spellcheck="false" 
+	  autocomplete="off" 
+	  autocapitalize="off"
 	/>
   );
 };

@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import Draggable from "react-draggable";
 
 const Container = styled.div`
-  position: float;
+  position: absolute;
   width: ${props => props.width}px;
-  height: ${props => props.height}px;;
+  height: ${props => props.height}px;
   cursor: default;
   display: flex;
   flex-direction: column;
@@ -14,20 +14,26 @@ const Container = styled.div`
   align-items: center;
   margin: 0;
   padding: 0;
-  top: 42%;
   left: ${props => props.left}px;
   top: ${props => props.top}px;
   image-rendering: pixelated;
   user-drag: none;
   user-select: none;
   filter: ${props => props.isInverted ? 'invert(100%)' : 'invert(0%)'};
-  min-width: 64px;
-  min-height: 64px;
+  min-width: 128px;
+  min-height: 128px;
+`;
+
+const SvgWrapper = styled.div`
+  width: ${props => props.width}px;
+  height: ${props => props.height}px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
-  width: ${props => props.width}px;
-  height: ${props => props.height}px;
   user-drag: none;
   user-select: none;
   transform: skew(0deg, 0deg);
@@ -37,8 +43,8 @@ const Text = styled.p`
   text-align: center;
   font-size: 9px;
   font-family: 'PunkSystemComp';
-  margin-top: 0px;
-  background-color:  ${props => props.isInverted ? '#00FF00' : '#AAA'};
+  margin-top: 4px;
+  background-color: ${props => props.isInverted ? '#00FF00' : '#AAA'};
   padding: 2px;
   width: auto;
   color: ${props => props.isInverted ? '#AAA' : '#000'};
@@ -54,7 +60,7 @@ const getRandomPosition = () => {
   return { left: randomLeft, top: randomTop };
 };
 
-const SVG = ( {filename, onClick} ) => {
+const SVG = ({ filename, onClick }) => {
   const [isInverted, setIsInverted] = useState(false);
   const [position, setPosition] = useState(getRandomPosition());
   const [isRightClicking, setIsRightClicking] = useState(false);
@@ -73,20 +79,19 @@ const SVG = ( {filename, onClick} ) => {
   const handleMouseDown = (event) => {
     if (event.button === 2) {
       setIsRightClicking(true);
-      event.preventDefault(); // prevent the default browser context menu
+      event.preventDefault();
     }
   };
 
   const handleMouseUp = () => {
     setIsRightClicking(false);
   };
-  
+
   const handleMouseLeave = () => {
     setIsRightClicking(false);
   };
 
-
-const handleMouseMove = (event) => {
+  const handleMouseMove = (event) => {
     if (isRightClicking) {
       const deltaX = event.movementX;
       const deltaY = event.movementY;
@@ -99,11 +104,8 @@ const handleMouseMove = (event) => {
     }
   };
 
-
-
-
   const handleContextMenu = (event) => {
-    event.preventDefault(); // prevent the default browser context menu
+    event.preventDefault();
   };
 
   const { left, top } = position;
@@ -118,13 +120,15 @@ const handleMouseMove = (event) => {
         onMouseDown={handleMouseDown}
         onMouseUp={handleMouseUp}
         onMouseMove={handleMouseMove}
-                style={{ width: `${width}px`, height: `${height}px` }}
-              >
-                <Image src={IconImage} alt="PunkHead" onContextMenu={handleContextMenu} onMouseDown={handleMouseDown} />
-                <Text isInverted={isInverted}>{filename}</Text>
-              </Container>
-            </Draggable>
-          );
-        };
-        
-        export default SVG;
+        style={{ width: `${width}px`, height: `${height}px` }}
+      >
+        <SvgWrapper width={width} height={height}>
+          <Image src={IconImage} alt="PunkHead" style={{ width: '100%', height: '100%' }} onContextMenu={handleContextMenu} onMouseDown={handleMouseDown} />
+        </SvgWrapper>
+        <Text isInverted={isInverted}>{filename}</Text>
+      </Container>
+    </Draggable>
+  );
+};
+
+export default SVG;

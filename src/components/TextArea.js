@@ -31,31 +31,31 @@ const ScrollbarContainer = styled.div`
   align-items: center;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
-  
 
   .scrollContainer {
-	  position: absolute;
-	  left: 2px;
-	  top: 2px;
-	  width: 16px;
-	  background-size: 2px 2px;
-	  background-position: 0 0, 1px 1px;
-	  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85)),
-						linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85));
-	  height: ${props => props.hasScrollbar ? 'calc(100% - 42px)' : 'calc(100% - 4px)'};
-	  display: block;
-	}
+	flex-grow: 1;
+	width: 16px;
+	background-size: 2px 2px;
+	background-position: 0 0, 1px 1px;
+	background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85)),
+					  linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85));
+	margin-top: 2px;
+	overflow: hidden;
+	margin-bottom: ${props => props.hasScrollbar ? '37px' : '2px'};
+  }
   
   .scrollbar {
 	box-sizing: border-box;
 	position: absolute;
 	width: 16px;
+	right: 2.5px;
 	background-color: #AAAAAA;
 	box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, .5px .5px #000000;
 	image-rendering: pixelated;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	user-select: none;
   }
   
   .buttonContainer {
@@ -66,10 +66,11 @@ const ScrollbarContainer = styled.div`
 	spacing: 0;
 	padding: 0;
 	margin: 0;
+	user-select: none;
   }
   .hide {
-	  display: none;
-	}
+	display: none;
+  }
 `;
 
 const ScrollIcon = styled.img`
@@ -82,99 +83,134 @@ const ScrollIcon = styled.img`
   border: none !important;
   box-shadow: none !important;
   display: flex;
+  user-select: none;
+  draggable: false;
 `;
 
-const TextArea = ({ text, handleTextChange, isMinimized }) => {
+const TextArea = ({ text, onChange, isMinimized }) => {
   const textareaRef = useRef(null);
   const scrollbarRef = useRef(null);
-  const [showScrollbar, setShowScrollbar] = useState(true);
+  const scrollbarContainerRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [startY, setStartY] = useState(0);
+  const [startScrollTop, setStartScrollTop] = useState(0);
+  const [hasScrollbar, setHasScrollbar] = useState(false);
 
-  useEffect(() => {
-	const textarea = textareaRef.current;
-	const scrollbar = scrollbarRef.current;
+  let debounceTimer;
+  const updateScrollbar = () => {
+	clearTimeout(debounceTimer);
+	debounceTimer = setTimeout(() => {
+	  const textarea = textareaRef.current;
+	  const needsScrollbar = textarea.scrollHeight > textarea.offsetHeight;
+	  setHasScrollbar(needsScrollbar);
 
-	const updateScrollbar = () => {
+	  if (!needsScrollbar) return;
+
 	  const barHeight = Math.min(
 		textarea.offsetHeight * (textarea.offsetHeight / textarea.scrollHeight),
 		textarea.offsetHeight
 	  );
 
-	  if (isMinimized) {
-		setShowScrollbar(false);
-		return;
-	  }
-
 	  const minimumBarHeight = 10;
-
-	  scrollbar.style.height = `${Math.max(barHeight - 41, minimumBarHeight)}px`;
-
-	  scrollbar.style.top = `${textarea.scrollTop * (textarea.offsetHeight / textarea.scrollHeight)}px`;
-	};
-
-	const handleRestore = () => {
-	  if (textareaRef.current.scrollHeight > textareaRef.current.offsetHeight) {
-		scrollbarRef.current.style.display = 'flex';
+	  if (scrollbarRef.current) {
+		scrollbarRef.current.style.height = `${Math.max(barHeight - 41, minimumBarHeight)}px`;
 	  }
+
+	  const maxScrollTop = textarea.scrollHeight - textarea.offsetHeight;
+	  const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - (scrollbarRef.current ? scrollbarRef.current.offsetHeight : 0) - 39;
+
+	  const calculatedTop = ((textarea.scrollTop / maxScrollTop) * scrollbarMaxTop) + 1;
+	  if (scrollbarRef.current) {
+		scrollbarRef.current.style.top = `${Math.min(Math.max(calculatedTop, 2), scrollbarMaxTop + 1)}px`;
+	  }
+	}, 10); // adjust the delay as needed
+  };
+
+  useEffect(() => {
+	const handleDocumentMouseMove = (e) => {
+	  if (isDragging) handleDragMove(e);
 	};
 
-	const handleMinimize = () => {
-	  scrollbarRef.current.style.display = 'none';
+	const handleDocumentMouseUp = () => {
+	  if (isDragging) handleDragEnd();
 	};
 
+	document.addEventListener('mousemove', handleDocumentMouseMove);
+	document.addEventListener('mouseup', handleDocumentMouseUp);
+
+	return () => {
+	  document.removeEventListener('mousemove', handleDocumentMouseMove);
+	  document.removeEventListener('mouseup', handleDocumentMouseUp);
+	};
+  }, [isDragging, startY, startScrollTop]);
+
+  useEffect(() => {
+	const textarea = textareaRef.current;
 	textarea.addEventListener('scroll', updateScrollbar);
-
-	if (isMinimized) {
-	  handleMinimize();
-	} else {
-	  handleRestore();
-	}
+	textarea.addEventListener('input', updateScrollbar);
 
 	return () => {
 	  textarea.removeEventListener('scroll', updateScrollbar);
+	  textarea.removeEventListener('input', updateScrollbar);
 	};
-  }, [isMinimized]);
+  }, [text, isMinimized]);
 
-
-  const handleUpClick = () => {
-	if (textareaRef.current.scrollTop - 50 > 0) {
-	  textareaRef.current.scrollTop -= 50;
-	} else {
-	  textareaRef.current.scrollTop = 0;
-	}
+  const handleDragStart = (e) => {
+	e.preventDefault();
+	setIsDragging(true);
+	setStartY(e.clientY);
+	setStartScrollTop(textareaRef.current.scrollTop);
   };
 
-  const handleDownClick = () => {
-	const { scrollHeight, offsetHeight, scrollTop } = textareaRef.current;
-	if (scrollTop + offsetHeight + 50 < scrollHeight) {
-	  textareaRef.current.scrollTop += 50;
-	} else {
-	  textareaRef.current.scrollTop = scrollHeight - offsetHeight;
-	}
+  const handleDragMove = (e) => {
+	if (!isDragging) return;
+
+	const deltaY = e.clientY - startY;
+	const maxScrollTop = textareaRef.current.scrollHeight - textareaRef.current.offsetHeight;
+	const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - scrollbarRef.current.offsetHeight - 39;
+
+	// Scale the deltaY value
+	const scaledDeltaY = deltaY * (maxScrollTop / scrollbarMaxTop);
+
+	textareaRef.current.scrollTop = startScrollTop + scaledDeltaY;
   };
 
-  const hasScrollbar = textareaRef.current && textareaRef.current.scrollHeight > textareaRef.current.offsetHeight;
+  const handleDragEnd = () => {
+	setIsDragging(false);
+  };
 
   return (
 	<Content className="content">
-	  <ScrollbarContainer>
-		<div className={`scrollContainer ${hasScrollbar ? '' : ''}`}>
-		  <div ref={scrollbarRef} className="scrollbar">
-			{hasScrollbar && (
-			  <ScrollIcon src={ScrollBar} />
-			)}
+	  <ScrollbarContainer ref={scrollbarContainerRef} hasScrollbar={hasScrollbar}>
+		<div className="scrollContainer">
+		  {hasScrollbar && (
+			<div 
+			  ref={scrollbarRef} 
+			  className="scrollbar" 
+			  onMouseDown={handleDragStart}
+			  onMouseMove={handleDragMove}
+			  onMouseUp={handleDragEnd}
+			>
+			  <ScrollIcon src={ScrollBar} draggable="false"/>
+			</div>
+		  )}
+		</div>
+		{hasScrollbar && (
+		  <div className="buttonContainer">
+			<ScrollButton className="scrollButton" icon="up" onClick={() => textareaRef.current.scrollTop -= 50} />
+			<ScrollButton className="scrollButton" icon="down" onClick={() => textareaRef.current.scrollTop += 50} />
 		  </div>
-		</div>
-		<div className={`buttonContainer ${hasScrollbar ? '' : 'hide'}`}>
-		  <ScrollButton className="scrollButton" icon="up" onClick={handleUpClick} style={{paddingBottom: '1px'}} />
-		  <ScrollButton className="scrollButton" icon="down" onClick={handleDownClick} />
-		</div>
+		)}
 	  </ScrollbarContainer>
 	  <textarea
 		ref={textareaRef}
 		className="textedit-textarea"
 		value={text}
-		onChange={handleTextChange}
-		isMinimized={isMinimized}
+		onChange={onChange}
+		autoCorrect="off" 
+		spellCheck="false" 
+		autoComplete="off" 
+		autoCapitalize="off"
 		style={{ fontFamily:'PunkSystemReg', fontSize: '10px', outline: 'none', borderRadius: '0', zIndex: '0', resize: 'none', borderBottom: '1.2px solid #AAAAAA', caretColor: 'blue'}}
 	  />
 	</Content>
