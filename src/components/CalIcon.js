@@ -89,11 +89,12 @@ const Month = styled.p`
   position: absolute;
   line-height: 1;
   text-align: center;
-  font-size: 9px;
+  font-size: 12px;
   font-family: "PunkMonthType";
   font-smooth: never;
   text-transform: uppercase;
-  top: 47px;
+  top: 46px;
+  text-spacing: 1px;
   user-select: none;
   padding: 0;
 `;

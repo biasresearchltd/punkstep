@@ -9,7 +9,7 @@ const Content = styled.div`
   textarea {
 	position: absolute;
 	width: calc(100% - 21px);
-	height: 301px;
+	height: 635.5px;
 	left: 21px;
 	top: 0.5px;
 	padding: 4px;
@@ -18,11 +18,11 @@ const Content = styled.div`
 
 const ScrollbarContainer = styled.div`
   z-index: 1;
-  width: 21.5px;
-  height: 300px;
+  width: 22px;
+  height: 634.5px;
   background-color: #AAA;
   position: absolute;
-  top: 1px;
+  top: 1.5px;
   left: 0;
   box-sizing: border-box;
   display: flex;
@@ -31,23 +31,25 @@ const ScrollbarContainer = styled.div`
   align-items: center;
   border-right: 1px solid black;
   border-bottom: 1px solid black;
+  user-select: none;
+  cursor: default;
 
   .scrollContainer {
 	flex-grow: 1;
-	width: 16px;
+	width: 17px;
 	background-size: 2px 2px;
 	background-position: 0 0, 1px 1px;
 	background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85)),
 					  linear-gradient(45deg, rgba(0, 0, 0, 0.85) 15%, transparent 25%, transparent 75%, rgba(0, 0, 0, 0.85) 66%, rgba(0, 0, 0, 0.85));
-	margin-top: 2px;
+	margin-top: 1.5px;
 	overflow: hidden;
-	margin-bottom: ${props => props.hasScrollbar ? '37px' : '2px'};
+	margin-bottom: ${props => props.hasScrollbar ? '39px' : '2px'};
   }
   
   .scrollbar {
 	box-sizing: border-box;
 	position: absolute;
-	width: 16px;
+	width: 17px;
 	right: 2.5px;
 	background-color: #AAAAAA;
 	box-shadow: inset 1px 1px #FCFCFE, inset -1px -1px #565656, .5px .5px #000000;
@@ -60,7 +62,7 @@ const ScrollbarContainer = styled.div`
   
   .buttonContainer {
 	position: absolute;
-	left: 1px;
+	left: .5px;
 	bottom: 1px;
 	width: 100%;
 	spacing: 0;
@@ -113,15 +115,15 @@ const TextArea = ({ text, onChange, isMinimized }) => {
 
 	  const minimumBarHeight = 10;
 	  if (scrollbarRef.current) {
-		scrollbarRef.current.style.height = `${Math.max(barHeight - 41, minimumBarHeight)}px`;
+		scrollbarRef.current.style.height = `${Math.max(barHeight - 43, minimumBarHeight)}px`;
 	  }
 
 	  const maxScrollTop = textarea.scrollHeight - textarea.offsetHeight;
-	  const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - (scrollbarRef.current ? scrollbarRef.current.offsetHeight : 0) - 39;
+	  const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - (scrollbarRef.current ? scrollbarRef.current.offsetHeight : 0) - 41;
 
 	  const calculatedTop = ((textarea.scrollTop / maxScrollTop) * scrollbarMaxTop) + 1;
 	  if (scrollbarRef.current) {
-		scrollbarRef.current.style.top = `${Math.min(Math.max(calculatedTop, 2), scrollbarMaxTop + 1)}px`;
+		scrollbarRef.current.style.top = `${Math.min(Math.max(calculatedTop, 1), scrollbarMaxTop + 1)}px`;
 	  }
 	}, 10); // adjust the delay as needed
   };
@@ -167,7 +169,7 @@ const TextArea = ({ text, onChange, isMinimized }) => {
 
 	const deltaY = e.clientY - startY;
 	const maxScrollTop = textareaRef.current.scrollHeight - textareaRef.current.offsetHeight;
-	const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - scrollbarRef.current.offsetHeight - 39;
+	const scrollbarMaxTop = scrollbarContainerRef.current.offsetHeight - scrollbarRef.current.offsetHeight - 36;
 
 	// Scale the deltaY value
 	const scaledDeltaY = deltaY * (maxScrollTop / scrollbarMaxTop);
@@ -211,7 +213,7 @@ const TextArea = ({ text, onChange, isMinimized }) => {
 		spellCheck="false" 
 		autoComplete="off" 
 		autoCapitalize="off"
-		style={{ fontFamily:'PunkSystemReg', fontSize: '10px', outline: 'none', borderRadius: '0', zIndex: '0', resize: 'none', borderBottom: '1.2px solid #AAAAAA', caretColor: 'blue'}}
+		style={{ fontFamily:'PunkSystemReg', fontSize: '10px', outline: 'none', borderRadius: '0', zIndex: '0', resize: 'none', borderBottom: '1.2px solid #666', caretColor: 'black'}}
 	  />
 	</Content>
   );

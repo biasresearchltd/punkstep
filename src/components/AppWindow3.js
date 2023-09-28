@@ -1,25 +1,85 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Draggable from 'react-draggable';
 import PropTypes from 'prop-types';
 import TitleBar from './TitleBar';
 import WindowFooter from './WindowFooter';
 import TextArea from "./TextArea";
 import ImgArea from "./ImgView";
+import './AppWindow.css';
 
-const AppWindow = ({ initialTitle, initialType, initialContent, isActive, onClick, onMinimize }) => {
+const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initialIsMinimized, onClick, onMinimize, minimizedPos, index, renameWindow, closeWindow, highestZIndex }) => {
   const [title, setTitle] = useState(initialTitle);
   const [type, setType] = useState(initialType);
   const [content, setContent] = useState(initialContent);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isClosed, setIsClosed] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(initialIsMinimized);
   const [editingTitle, setEditingTitle] = useState(false);
-  const [size, setSize] = useState({ width: 666, height: 333 });
-  const [position, setPosition] = useState({ x: -1200, y: 442 });
-
+  const [size, setSize] = useState({ width: 666, height: 666 });
+  const [position, setPosition] = useState({ x: 'calc(50vw - 333px)', y: 'calc(50vh - 333px)' });
+  const [originalPosition, setOriginalPosition] = useState(null);
+  const [animationStage, setAnimationStage] = useState(null);
+  const [showOutline, setShowOutline] = useState(false);
+  const [animationStep, setAnimationStep] = useState(0);
+  const [isRestoring, setIsRestoring] = useState(false);
+  const [minimizedPosition, setMinimizedPosition] = useState({ x: 0, y: 0 });
+  const [bgColor, setBgColor] = useState(isActive ? 'lightgray' : 'black');
+  
+  useEffect(() => {
+	if (animationStep === 1) {
+	  setTimeout(() => {
+		if (isRestoring) {
+		  setIsMinimized(false);
+		  setIsRestoring(false);
+		  setAnimationStep(0);
+		  setPosition(originalPosition);
+		} else {
+		  setIsMinimized(true);
+		  setAnimationStep(2);
+		  setPosition({ x: `${minimizedPos.x}`, y: 'calc(100vh - 64px)' });  // Changed minimizedIndex to minimizedPos.x
+		}
+	  }, 500);
+	}
+  }, [animationStep, isRestoring, minimizedPos]);  // Changed minimizedIndex to minimizedPos
+  
+  useEffect(() => {
+	  if (animationStep === 1) {
+		setBgColor('transparent');
+	  }
+	}, [animationStep]);
+  
+  useEffect(() => {
+	if (isMinimized) {
+	  setBgColor('lightgray');
+	} else {
+	  setBgColor(isActive ? 'lightgray' : 'black');
+	}
+  }, [isMinimized, isActive]);
+  
+  const handleMinimize = () => {
+	  setOriginalPosition(position); // Save the original position
+	  setIsRestoring(false);
+	  setAnimationStep(1);
+	  setMinimizedPosition({ x: minimizedPosition, y: 'calc(100vh - 64px)' });
+	};
+  
+  const handleRestore = () => {
+  	setIsRestoring(true);
+  	setAnimationStep(1);
+  };
+  
   const handleContentChange = (e) => {
 	setContent(e.target.value);
   };
-
+  
+  const handleMouseDown = () => {
+	onClick(); 
+	};
+  
+  const handleTitleChange = (newTitle) => {
+	setTitle(newTitle);
+	renameWindow(index, newTitle); // Assuming 'index' is the index of this window in the array
+  };
+  
   const renderContent = () => {
 	switch (type) {
 	  case 'TextEdit':
@@ -31,27 +91,45 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, onClic
 	}
   };
 
+  const animationVariants = {
+	  initial: { opacity: 1, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
+	  step1: { opacity: 0, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
+	  step2: { opacity: 1, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
+	  step3: { opacity: 1, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
+	};
+
   return (
-	<>
-	  {!isClosed && (
-		<Draggable handle=".titleBar, .windowFooter">
-		  <div
-			style={{
-			  width: isMinimized ? '64px' : size.width,
-			  height: isMinimized ? '64px' : size.height,
-			  left: position.x,
-			  top: position.y,
-			  backgroundColor: isActive ? 'black' : 'lightgray',
-			  position: 'absolute',
-			  border: '1px solid black'
-			}}
-			onClick={onClick}
-		  >
+	<AnimatePresence>
+		<Draggable handle=".titleBar, .windowFooter" onStart={handleMouseDown}>
+		  <motion.div
+			  className={`app-window ${showOutline ? 'black-outline' : ''}`}
+			  initial={false}
+			  animate={{ backgroundColor: bgColor, left: position.x, top: position.y }}
+			  transition={{ type: "tween", ease: "linear", duration: 0.1666, opacity: { duration: 0.1 } }}
+			  onMouseDown={handleMouseDown}
+			  style={{
+				left: position.x,
+				top: position.y,
+				position: 'absolute',
+				border: animationStep === 1 ? '2px solid black' : '1px solid black',
+				zIndex: isActive ? highestZIndex : 999  // Use highestZIndex for the active window
+			  }}
+			  onClick={() => {
+				  onClick();  // This should set the active window and update highestZIndex
+				}}
+			>
+			  <motion.div
+				initial="initial"
+				animate={animationStep === 0 ? "initial" : `step${animationStep}`}
+				variants={animationVariants}
+				transition={{ type: "tween", ease: "linear", duration: 0.1666, opacity: { duration: 0.1 } }}  // Set your desired duration here
+				onDoubleClick={isMinimized ? handleRestore : null}
+			  >
 			<TitleBar
 			  isMinimized={isMinimized}
 			  title={title}
-			  onMinimize={onMinimize}
-			  onClose={() => setIsClosed(true)}
+			  onMinimize={handleMinimize}
+			  onClose={closeWindow}
 			  onTitleDoubleClick={() => {
 				if (!editingTitle) {
 				  setEditingTitle(true);
@@ -63,11 +141,11 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, onClic
 			  setEditingTitle={setEditingTitle}
 			/>
 			{!isMinimized && renderContent()}
-			{!isMinimized && <WindowFooter />}
-		  </div>
+			{!isMinimized && <WindowFooter className=".windowFooter" />}
+		  </motion.div>
+		  </motion.div>
 		</Draggable>
-	  )}
-	</>
+	</AnimatePresence>
   );
 };
 
@@ -83,7 +161,7 @@ AppWindow.propTypes = {
 AppWindow.defaultProps = {
   initialTitle: 'Mindware.txt',
   initialType: 'TextEdit',
-  initialContent: "The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind. Then, try changing this text.",
+  initialContent: "The first 𝙿𝚄𝙽𝙺 thing one can do is change one's mind.",
   isActive: false,
   onClick: () => {},
   onMinimize: () => {}

@@ -12,15 +12,15 @@ const Dock = ({ addWindow }) => {
   const [textEditorCount, setTextEditorCount] = useState(0);
   const doubleClickRef = useRef(0);
   const handleTextEditClick = (event) => {
-  	event.stopPropagation();
-	console.log("handleTextEditClick called");
-	const newCount = textEditorCount + 1;
-	setTextEditorCount(newCount);
-	const newClassName = `app-window-${newCount}`;
-	addWindow(
-	  <Window title={"Mindware.txt"} x={50 * newCount} y={50 * newCount} className={newClassName} />
-	);
-  };
+	  event.stopPropagation();
+	  console.log("handleTextEditClick called"); // For debugging
+	  const newCount = textEditorCount + 1;
+	  setTextEditorCount(newCount);
+	  const newClassName = `app-window-${newCount}`;
+	  addWindow(
+		<Window title={"Mindware.txt"} x={50 * newCount} y={50 * newCount} className={newClassName} />
+	  );
+	};
 
   const handleClick = () => {
 	window.open("https://www.twitter.com/ppuunnkkdotcom", "_blank");
@@ -41,7 +41,7 @@ const Dock = ({ addWindow }) => {
 		<div style={{ display: "flex", flexDirection: "column", alignItems: "center", alignSelf: 'flex-start' }}>
 		  <PunkIcon />
 		  <CalIcon />
-		  <TextEditIcon onClick={(event) => handleTextEditClick(event)} />
+		  <TextEditIcon onClick={handleTextEditClick} />
 		  <OKSHIcon />
 		  <RoboIcon onClick={latestPoster} />
 		  <PEIcon onClick={punkEnergy} />
