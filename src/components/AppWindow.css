@@ -1,0 +1,34 @@
+/* Existing styles for app-window */
+.app-window {
+  /* ... */
+}
+
+/* New styles specific to app-window-content */
+.app-window-content {
+  /* Add styles specific to the content here */
+}
+
+/* Existing styles for animations */
+.app-window.fading,
+.app-window-content.fading {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+.app-window.minimizing,
+.app-window-content.minimizing {
+  transition: opacity 0.5s ease-in-out;
+  opacity: 0;
+}
+
+/* ... (other existing styles) */
+
+/* Outline styles */
+.app-window.black-outline {
+  border: 2px solid black;
+}
+
+/* If you want to apply the outline only to the content */
+.app-window-content.black-outline {
+  border: 2px solid black;
+}

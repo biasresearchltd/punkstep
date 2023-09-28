@@ -20,8 +20,8 @@ const IconContainer = styled.div`
 `;
 
 const StyledWindowButton = styled.div`
-  width: 16px;
-  height: 16px;
+  width: 17px;
+  height: 17px;
   background-color: #AAA;
   border: none;
   outline: none;
