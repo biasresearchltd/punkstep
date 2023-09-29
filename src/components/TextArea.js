@@ -8,7 +8,7 @@ const Content = styled.div`
   position: relative;
   textarea {
 	position: absolute;
-	width: calc(100% - 21px);
+	width: calc(100% - 20px);
 	height: 635.5px;
 	left: 21px;
 	top: 0.5px;

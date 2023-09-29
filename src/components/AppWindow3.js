@@ -6,6 +6,7 @@ import TitleBar from './TitleBar';
 import WindowFooter from './WindowFooter';
 import TextArea from "./TextArea";
 import ImgArea from "./ImgView";
+import IconImage from "../icons/TextEdit.png";
 import './AppWindow.css';
 
 const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initialIsMinimized, onClick, onMinimize, minimizedPos, index, renameWindow, closeWindow, highestZIndex }) => {
@@ -35,11 +36,15 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initia
 		} else {
 		  setIsMinimized(true);
 		  setAnimationStep(2);
-		  setPosition({ x: `${minimizedPos.x}`, y: 'calc(100vh - 64px)' });  // Changed minimizedIndex to minimizedPos.x
+		  setPosition({ x: `${minimizedPos.x}`, y: 'calc(100vh - 64px)' });
 		}
 	  }, 500);
+	} else if (animationStep === 2) {
+	  setTimeout(() => {
+		setAnimationStep(3);
+	  }, 500);
 	}
-  }, [animationStep, isRestoring, minimizedPos]);  // Changed minimizedIndex to minimizedPos
+  }, [animationStep, isRestoring, minimizedPos]);
   
   useEffect(() => {
 	  if (animationStep === 1) {
@@ -48,12 +53,14 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initia
 	}, [animationStep]);
   
   useEffect(() => {
-	if (isMinimized) {
+	if (animationStep === 1 || animationStep === 2) {
+	  setBgColor('transparent');
+	} else if (isMinimized) {
 	  setBgColor('lightgray');
 	} else {
 	  setBgColor(isActive ? 'lightgray' : 'black');
 	}
-  }, [isMinimized, isActive]);
+  }, [isMinimized, isActive, animationStep]);
   
   const handleMinimize = () => {
 	  setOriginalPosition(position); // Save the original position
@@ -92,11 +99,12 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initia
   };
 
   const animationVariants = {
-	  initial: { opacity: 1, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
-	  step1: { opacity: 0, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
-	  step2: { opacity: 1, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
-	  step3: { opacity: 1, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
-	};
+	initial: { opacity: 1, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
+	step1: { opacity: 0, x: 0, y: 0, width: 666, height: 666, backgroundColor: 'transparent' },
+	step2: { opacity: 0, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
+	step3: { opacity: 1, x: minimizedPosition.x, y: minimizedPosition.y, width: 64, height: 64, backgroundColor: 'transparent' },
+  };
+
 
   return (
 	<AnimatePresence>
@@ -105,14 +113,20 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initia
 			  className={`app-window ${showOutline ? 'black-outline' : ''}`}
 			  initial={false}
 			  animate={{ backgroundColor: bgColor, left: position.x, top: position.y }}
-			  transition={{ type: "tween", ease: "linear", duration: 0.1666, opacity: { duration: 0.1 } }}
+			  transition={{ type: "tween", ease: "linear", duration: 0.1, opacity: { duration: 0.01 } }}
 			  onMouseDown={handleMouseDown}
 			  style={{
 				left: position.x,
 				top: position.y,
 				position: 'absolute',
-				border: animationStep === 1 ? '2px solid black' : '1px solid black',
-				zIndex: isActive ? highestZIndex : 999  // Use highestZIndex for the active window
+				cursor: 'default',
+				userSelect: 'none',
+				border: animationStep === 1 ? '2px solid black' : '1.5px solid black',
+				zIndex: isActive ? highestZIndex : 999,
+				backgroundImage: isMinimized && animationStep === 3 ? `url(${IconImage})` : 'none',
+				backgroundSize: 'cover',
+				backgroundRepeat: 'no-repeat',
+				opacity: isMinimized ? 1 : 1
 			  }}
 			  onClick={() => {
 				  onClick();  // This should set the active window and update highestZIndex
@@ -141,7 +155,7 @@ const AppWindow = ({ initialTitle, initialType, initialContent, isActive, initia
 			  setEditingTitle={setEditingTitle}
 			/>
 			{!isMinimized && renderContent()}
-			{!isMinimized && <WindowFooter className=".windowFooter" />}
+			{!isMinimized && <WindowFooter/>}
 		  </motion.div>
 		  </motion.div>
 		</Draggable>
