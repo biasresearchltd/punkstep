@@ -30,6 +30,7 @@ const TitleBar = ({
 		fontFamily: 'PunkSystemBold',
 		boxSizing: 'border-box',
 		boxShadow: 'inset 1px 1px #FCFCFE, inset -1px -1px #565656, 1px 1px #000000',
+		userSelect: 'none',
 		zIndex: '90'
 	  }}
 	>
@@ -42,13 +43,14 @@ const TitleBar = ({
 		{!editingTitle ? (
 		  <div
 			style={{
-			  marginLeft: 'auto', 
 			  fontSize: isMinimized ? '8px' : '10px', 
 			  textTransform: 'none', 
-			  fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold', 
-			  marginTop: isMinimized ? '13px' : '3px',
-			  marginLeft: isMinimized ? '3px' : '0px',
-			  color: isActive ? 'white' : 'black'
+			  fontFamily: isMinimized ? 'PunkSystemComp' : 'PunkSystemBold',height: isMinimized ? '11px' : '21px',
+			  marginTop: isMinimized ? '1px' : '13.5px',
+			  marginLeft: isMinimized ? '0.5px' : '0px',
+			  color: isMinimized ? 'white' : (isActive ? 'white' : 'black'),
+			  textAlign: isMinimized ? 'center' : 'left',
+			  userSelect: isMinimized ? 'none' : 'none'
 			}}
 			onDoubleClick={() => {
 			  if (!isMinimized) {

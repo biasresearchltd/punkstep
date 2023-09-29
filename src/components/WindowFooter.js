@@ -33,7 +33,10 @@ const WindowFooterSide = styled.div`
 `;
 
 const WindowFooter = () => (
-  <FooterContainer>
+  <FooterContainer
+    className="windowFooter"
+    style={{ cursor: 'default', userSelect: 'none' }}
+    >
 	<WindowFooterSide />
 	<WindowFooterMid />
 	<WindowFooterSide />
